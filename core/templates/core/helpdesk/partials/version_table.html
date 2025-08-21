@@ -1,0 +1,37 @@
+<table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Terminal</th>
+          <th>Template</th>
+          <th>Firmware</th>
+          <th>XFS</th>
+          <th>E-Journal</th>
+          <th>BRITS</th>
+          <th>App Version</th>
+          <th>Neo ATM</th>
+          <th>Created At</th> 
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for version in versions %}
+        <tr>
+          <td>{{ version.terminal }}</td>
+          <td>{{ version.template }}</td>
+          <td>{{ version.firmware }}</td>
+          <td>{{ version.xfs }}</td>
+          <td>{{ version.ejournal }}</td>
+          <td>{{ version.brits }}</td>
+          <td>{{ version.app_version }}</td>
+          <td>{{ version.neo_atm }}</td>
+           <td>{{ version.created_at|date:"Y-m-d H:i" }}</td> 
+          <td>
+            <a href="{% url 'version_detail' version.pk %}" class="btn btn-sm btn-primary">View</a>
+            <a href="{% url 'delete_version' version.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you want to delete this version?');">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">No version entries available.</td></tr>
+        {% endfor %}
+      </tbody>
+</table>

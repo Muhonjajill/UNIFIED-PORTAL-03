@@ -1,0 +1,302 @@
+/* General Page Container */
+.detail-page-container {
+  background: #ffffff;
+  padding: 2.5rem; /* Increased padding */
+  border-radius: 16px; /* More rounded */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Stronger, softer shadow */
+  margin-top: 2.5rem;
+  color: #343a40;
+  animation: fadeIn 0.6s ease-out; /* Slightly faster fade-in */
+}
+
+.detail-header {
+  font-size: 2rem; /* Larger header */
+  color: #2c3e50;
+  margin-bottom: 1.8rem; /* More space */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slideInLeft 0.8s ease-out;
+}
+
+/* Version Details Card (Table Container) */
+.version-details-card {
+  background-color: #f8f9fa; /* Light background for the card */
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 0.7s ease-out 0.2s forwards; /* Animated appearance */
+  opacity: 0; /* Start hidden for animation */
+}
+
+.version-detail-table {
+  width: 100%;
+  border-collapse: separate; /* Allows border-radius on cells */
+  border-spacing: 0; /* Remove default spacing */
+  font-size: 1.05rem;
+}
+
+.version-detail-table th,
+.version-detail-table td {
+  padding: 1.1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef; /* Light separator */
+  color: #495057;
+}
+
+.version-detail-table th {
+  background-color: #e2e6ea; /* Slightly darker header background */
+  font-weight: 600;
+  color: #212529;
+  width: 30%; /* Allocate width for labels */
+}
+
+.version-detail-table tr:first-child th {
+  border-top-left-radius: 8px; /* Rounded corners for first header cell */
+}
+.version-detail-table tr:first-child td {
+  border-top-right-radius: 8px;
+}
+.version-detail-table tr:last-child th {
+  border-bottom-left-radius: 8px; /* Rounded corners for last header cell */
+}
+.version-detail-table tr:last-child td {
+  border-bottom-right-radius: 8px;
+}
+
+.version-detail-table tbody tr:hover {
+  background-color: #f1f3f5; /* Light hover effect for rows */
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+/* Comments Section */
+.comments-section {
+  margin-top: 2.5rem;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  animation: fadeInUp 0.7s ease-out 0.3s forwards; /* Animated appearance */
+  opacity: 0; /* Start hidden for animation */
+}
+
+.comments-header {
+  font-size: 1.7rem;
+  color: #2c3e50;
+  margin-bottom: 1.2rem;
+}
+
+.comment-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.comment-form textarea.form-control {
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  min-height: 100px;
+  transition: all 0.3s ease-in-out;
+}
+
+.comment-form textarea.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25), 0 2px 8px rgba(0, 123, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.comment-submit-btn {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.comment-submit-btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+.comments-divider {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-top: 1px dashed #e0e0e0; /* Dashed separator */
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.comment-item {
+  background-color: #fefefe;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  animation: fadeInRight 0.6s ease-out forwards; /* Animated appearance */
+  opacity: 0; /* Start hidden for animation */
+}
+.comment-item:nth-child(even) { /* Alternate animation delay for a staggered effect */
+    animation-delay: 0.1s;
+}
+.comment-item:nth-child(odd) {
+    animation-delay: 0.2s;
+}
+
+.comment-item p {
+  margin-bottom: 0.5rem;
+  color: #343a40;
+  line-height: 1.6;
+}
+
+.comment-item .comment-meta {
+  display: block;
+  text-align: right;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.no-comments {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+
+/* Action Buttons */
+.action-buttons {
+  margin-top: 3rem; /* More space above buttons */
+  text-align: center;
+  display: flex; /* Use flexbox for button alignment */
+  justify-content: center;
+  gap: 1rem; /* Space between buttons */
+  animation: fadeInUp 0.7s ease-out 0.4s forwards; /* Animated appearance */
+  opacity: 0; /* Start hidden for animation */
+}
+
+.action-btn {
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  transform: translateY(-3px) scale(1.03); /* More pronounced lift and scale */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific button styles (override Bootstrap defaults if needed for consistency) */
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+.btn-warning:hover {
+  background-color: #e0a800;
+  border-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: #bb2d3b;
+  border-color: #bb2d3b;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(-20px); /* Come in from left for comments */
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .detail-page-container {
+    padding: 1.5rem;
+  }
+  .detail-header {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .version-details-card,
+  .comments-section {
+    padding: 1.5rem;
+  }
+  .version-detail-table th,
+  .version-detail-table td {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+  .comments-header {
+    font-size: 1.4rem;
+  }
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .action-btn {
+    width: 100%;
+  }
+}

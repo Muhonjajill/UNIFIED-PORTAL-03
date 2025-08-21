@@ -1,0 +1,285 @@
+/* statistics.css */
+
+/* Root variables for consistent theming and easy adjustments */
+:root {
+  --primary-color: #2a3d66; /* Dark blue for professionalism */
+  --secondary-color: #6a11cb; /* A muted purple */
+  --accent-color: #4fa3f7; /* Accent blue */
+  --background-color: #f8f9fa; /* Light background for readability */
+  --text-color: #333333; /* Dark text for contrast */
+  --gray-light: #e9ecef; /* Lighter gray for backgrounds */
+  --gray-medium: #ced4da; /* Medium gray for borders */
+  --shadow-light: rgba(0,0,0,0.08); /* Lighter shadow for general cards */
+  --shadow-medium: rgba(0,0,0,0.15); /* Medium shadow for hover/active states */
+  --border-radius: 12px; /* Rounded edges for a modern look */
+  --transition-speed: 0.3s ease; /* Global transition timing */
+
+  /* Themed colors for better organization */
+  --card-background: #ffffff;
+  --card-text: var(--text-color);
+  --header-color: var(--primary-color);
+  --form-select-bg: #ffffff;
+  --form-select-border: var(--gray-medium);
+  --button-primary-bg: var(--primary-color);
+  --button-primary-text: #ffffff;
+  --button-primary-hover-bg: color-mix(in srgb, var(--primary-color) 85%, black);
+}
+
+/* Optional: Dark Mode variables (if you plan to implement) */
+/* Add a class like .dark-mode to your body or html tag to enable */
+body.dark-mode {
+  --background-color: #1a1a2e;
+  --text-color: #e0e0e0;
+  --gray-light: #3a3a5a;
+  --gray-medium: #5a5a75;
+  --shadow-light: rgba(0,0,0,0.3);
+  --shadow-medium: rgba(0,0,0,0.5);
+  --card-background: #2c2c4d;
+  --card-text: var(--text-color);
+  --header-color: var(--accent-color);
+  --form-select-bg: #3a3a5a;
+  --form-select-border: #5a5a75;
+  --button-primary-bg: var(--accent-color);
+  --button-primary-hover-bg: color-mix(in srgb, var(--accent-color) 85%, black);
+}
+
+/* Universal box-sizing for consistent layout */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding-top: 20px; /* Space from top, assuming no fixed navbar */
+  transition: background-color var(--transition-speed), color var(--transition-speed); /* Smooth theme transitions */
+
+  /* Subtle background texture */
+  background-image: radial-gradient(circle at top left, rgba(0,0,0,0.01) 1px, transparent 1px),
+                    radial-gradient(circle at bottom right, rgba(0,0,0,0.01) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+.container {
+  max-width: 1400px; /* Slightly wider container for more content space */
+  margin: auto;
+  padding: 0 15px; /* Add horizontal padding */
+}
+
+h2.text-center {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--header-color);
+  margin-bottom: 2.5rem !important; /* More space below main title */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color var(--transition-speed);
+}
+
+/* Form Styles (Filters) */
+form.row {
+  background-color: var(--card-background);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 15px var(--shadow-light);
+  margin-bottom: 2.5rem !important; /* More space below filter section */
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-select {
+  background-color: var(--form-select-bg);
+  border: 1px solid var(--form-select-border);
+  border-radius: 8px; /* Slightly more rounded for select boxes */
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--card-text);
+  cursor: pointer;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(79, 163, 247, 0.25); /* Accent color focus ring */
+  outline: 0;
+}
+
+/* Card Styles (for charts) */
+.card {
+  background-color: var(--card-background);
+  border: none; /* Remove default bootstrap border */
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 20px var(--shadow-light); /* Softer initial shadow */
+  transition: all var(--transition-speed); /* Smooth transitions for hover effects */
+}
+
+.card:hover {
+  box-shadow: 0 12px 30px var(--shadow-medium); /* More pronounced shadow on hover */
+  transform: translateY(-5px); /* Subtle lift effect */
+}
+
+.card-body {
+  padding: 1.5rem !important; /* Consistent padding */
+  color: var(--card-text);
+}
+
+.card-title {
+  font-size: 1.35rem; /* Slightly larger card titles */
+  font-weight: 600;
+  color: var(--header-color);
+  margin-bottom: 1.5rem; /* More space below card title */
+  transition: color var(--transition-speed);
+}
+
+/* Specific styling for the Ticket Statuses card */
+.card .rounded-lg { /* This class seems redundant given .card border-radius */
+  border-radius: var(--border-radius);
+}
+
+.card-title.text-primary {
+  color: var(--primary-color) !important; /* Ensure primary color override */
+}
+
+/* Canvas styling (charts) */
+canvas {
+  width: 100% !important;
+  height: 300px !important; /* Consistent height for all charts */
+  max-height: 400px; /* Optional: max height to prevent overly tall charts */
+}
+
+/* Ticket Status Breakdown Section */
+#ticket-status-breakdown {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--gray-light);
+  border-radius: var(--border-radius);
+  color: var(--text-color);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+#ticket-status-breakdown .status-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05); /* Subtle separator */
+  font-size: 1rem;
+}
+
+#ticket-status-breakdown .status-item:last-child {
+  border-bottom: none; /* No border for the last item */
+}
+
+#ticket-status-breakdown .status-item .label {
+  font-weight: 500;
+}
+
+#ticket-status-breakdown .status-item .value {
+  font-weight: 700;
+  color: var(--header-color); /* Highlight value */
+}
+
+/* Export Button */
+#export-report {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  border-radius: 50px; /* More rounded pill shape */
+  padding: 1rem 3rem; /* Generous padding */
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 8px 25px var(--shadow-medium); /* Stronger shadow for button */
+  transition: all var(--transition-speed);
+  display: inline-flex; /* Align icon and text */
+  align-items: center;
+  gap: 0.75rem; /* Space between icon and text */
+}
+
+#export-report:hover {
+  background-color: var(--button-primary-hover-bg);
+  transform: translateY(-3px); /* More pronounced lift */
+  box-shadow: 0 12px 35px var(--shadow-medium);
+}
+
+#export-report:active {
+  transform: translateY(0); /* Press down effect */
+  box-shadow: 0 4px 10px var(--shadow-light);
+}
+
+/* Font Awesome Icon sizing within button */
+#export-report i {
+  font-size: 1.2em; /* Keep icon proportional to text */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) { /* Medium devices */
+  .container {
+    padding: 0 10px;
+  }
+  h2.text-center {
+    font-size: 2rem;
+    margin-bottom: 2rem !important;
+  }
+  .col-md-6 {
+    margin-bottom: 1.5rem !important; /* Adjust spacing between columns */
+  }
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  canvas {
+    height: 250px !important; /* Adjust chart height */
+  }
+  .form-select {
+    margin-bottom: 0.75rem; /* Adjust spacing for form elements */
+  }
+}
+
+@media (max-width: 768px) { /* Small devices */
+  h2.text-center {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem !important;
+  }
+  form.row {
+    padding: 1rem;
+    margin-bottom: 1.5rem !important;
+  }
+  .form-select {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+  .col-md-3 { /* For filter columns on small screens */
+    flex: 0 0 100%; /* Full width */
+    max-width: 100%;
+  }
+  .card-body {
+    padding: 1rem !important;
+  }
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  canvas {
+    height: 200px !important; /* Further reduce chart height */
+  }
+  #export-report {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) { /* Extra small devices */
+  .container {
+    padding: 0 5px;
+  }
+  h2.text-center {
+    font-size: 1.5rem;
+  }
+}

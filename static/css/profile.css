@@ -1,0 +1,187 @@
+/* ==== Background & Universal Styles ==== */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0; padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e9eff1 100%);
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Cards */
+.profile-container, .settings-container {
+  max-width: 640px;
+  margin: 2.5rem auto;
+  padding: 2.2rem 2rem 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(206, 221, 236, 0.2);
+  animation: card-in 0.8s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+
+/* ==== Animated Avatar with Gradient Border ==== */
+.avatar-container, .profile-avatar {
+  text-align: center;
+}
+.avatar-glow-container {
+  display: flex; justify-content: center; align-items: center;
+}
+.avatar-glow-container:hover .profile-avatar {
+  box-shadow: 0 0 0 6px rgba(50, 150, 255, 0.15), 0 6px 16px rgba(50, 150, 255, 0.1);
+}
+.avatar-img, .profile-avatar {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.2rem;
+  border: 2px solid #a1b0c7;
+  box-shadow: 0 3px 17px rgba(46, 140, 236, 0.1);
+  transition: transform 0.35s cubic-bezier(.47,1.64,.41,.8);
+  background: #f7f8fb;
+  display: block;
+}
+.avatar-img.zoom-in:hover,
+.profile-avatar.zoom-in:hover {
+  transform: scale(1.12);
+}
+
+/* ==== Headings ==== */
+h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #334e68;
+  text-align: center;
+  margin-bottom: 2.2rem;
+  opacity: 0;
+  animation: fadeInDown 0.9s 0.12s forwards cubic-bezier(.33,1,.68,1);
+}
+
+/* ==== Detail Sections ==== */
+.profile-details p {
+  font-size: 1.1rem;
+  margin: 0.7rem 0 0.1rem;
+  color: #475f77;
+  letter-spacing: 0.01em;
+  background: rgba(242, 247, 255, 0.85);
+  padding: 0.55rem 0.95rem;
+  border-radius: 8px;
+  box-shadow: 0 1.5px 4px rgba(36,100,243,0.04);
+  opacity: 0;
+  animation: fadeIn 0.8s 0.3s forwards;
+}
+
+/* ==== Profile and Settings Links ==== */
+.profile-links, .settings-links {
+  margin-top: 2.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.profile-links a,
+.settings-links a {
+  text-decoration: none;
+  color: #004c8c;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: .01em;
+  padding: 0.55rem 1.2rem;
+  border-radius: 30px;
+  background: rgba(204,230,255,0.25);
+  box-shadow: 0 1.5px 7px rgba(36,100,243,0.07);
+  transition: background 0.19s, color 0.18s, transform 0.17s;
+  opacity: 0;
+  animation: fadeInLeft 0.8s 0.5s forwards;
+}
+.profile-links a:hover,
+.settings-links a:hover {
+  background: #004c8c;
+  color: #fff;
+  transform: translateY(-2.5px) scale(1.04);
+  text-shadow: 0 1.5px 6px rgba(0, 76, 140, 0.3);
+}
+
+/* ==== Buttons ==== */
+button, button.btn-primary {
+  background: linear-gradient(90deg, #4c72e0 10%, #14cdd1 90%);
+  color: #fff;
+  padding: 0.65rem 1.6rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.13rem;
+  font-weight: 700;
+  box-shadow: 0 2px 15px rgba(56,167,246,0.13);
+  cursor: pointer;
+  transition: background 0.21s, transform 0.17s;
+  margin: 0.7rem auto 0;
+  display: block;
+  opacity: 0;
+  animation: fadeInUp 0.8s 0.8s forwards;
+}
+
+button:hover, .btn-primary:hover {
+  background: linear-gradient(90deg, #14cdd1 10%, #4c72e0 90%);
+  transform: scale(1.05);
+}
+
+input, select, textarea {
+  border: 1.3px solid #d1d8e2;
+  border-radius: 6px;
+  padding: .64rem;
+  background: #fafdff;
+  color: #242638;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  transition: border 0.19s, box-shadow 0.19s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border: 1.6px solid #004c8c;
+  box-shadow: 0 0 0 1.3px #b3dcff;
+}
+
+/* Form Fieldsets */
+.form-section {
+  background: rgba(225, 243, 253, 0.75);
+  border-radius: 10px;
+  padding: 1.1rem 1.2rem 0.6rem;
+  margin-bottom: 1.9rem;
+  box-shadow: 0 1px 4px rgba(46, 140, 236, 0.05);
+}
+.form-section legend {
+  font-weight: 700;
+  color: #2563eb;
+  letter-spacing: 0.01em;
+  font-size: 1.02rem;
+}
+
+/* ==== Animations ==== */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes card-in {
+  from { opacity: 0; transform: scale(0.95) translateY(24px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ==== Responsiveness ==== */
+@media screen and (max-width: 600px) {
+  .profile-container, .settings-container {
+    margin: 0.7rem; padding: 1.1rem 0.35rem 1.4rem;
+    border-radius: 11px;
+  }
+  .avatar-img, .profile-avatar { width: 90px; height: 90px; }
+  h1 { font-size: 1.23rem; }
+}

@@ -1,0 +1,50 @@
+﻿Name,Gender,REGISTRATION NO,ID NO,COURT OF PREFERENCE,ALTERNATIVE ONE,ALTERNATIVE 2
+Ashley SUSAN,Female,BAIS/2022/49339,41246237,Kimilili Law Courts,Webuye Law Courts,Sirisia Law Courts
+Joan Kunasia,Female,BAIS/2022/52244,42644060,Kajiado Law Courts,Milimani Law Court,
+Aisha Mohammed,Female,BAIS/2022/52159,,Milimani Law Courts,Supreme Court,Kibera Law Courts
+Fauzia Hassan,Female,BAIS/2022/52145,,Thika Law Courts,Makadara Law Courts,Moyale Law Courts
+Hafsa Hussein,Female,BAIS/2024/52033,,Milimani Law Court,Supreme Court,Kibera Law Court
+Dhahabu Hassan,Female,BAIS/2023/51368,42375130,Homa Bay Law Courts,Kisumu Law Courts,Milimani Commercial Law
+Hassan  Hillow,Male,BAIS/2023/51416,41899072,Homabay Law Courts,Kisumu Law Courts,Milimani Commercial Law
+Vennesa Gaatr,Female,BAIS/2023/51533,42824671,Bungoma Law Courts,Mumias Law Courts,Bungoma Law Courts
+Kadar Mustafa,Male,BAIS/2024/52310,42802710,Mandera Law Courts,Moyale Law Courts,JKIA Law Courts
+Abubakar Mohammed,Male,BAIS/2024/52251,489143483,Mombasa Law Courts,Shanzu Law Courts,Tononoka Law Courts
+Mohammed Ahmed,Male,BAIS/2024/52271,42888419,Milimani HC - Family Division,Milimani Law Courts,Milimani HC - Anti-Corruption Division
+Muhiyidin Mohamed,Male,BAIS/2023/51052,22620125,Milimani HC - Criminal Division,Milimani HC - Commercial & Admiralty Division,Milimani HC - Employment & Labour Relation Division
+Name,Gender,REGISTRATION NO,ID NO,CELL NO,COURT OF PREFERENCE,ALTERNATIVE ONE,ALTERNATIVE 2
+Salma Khamisi,Female,RAIS/2024/0202,,,"Mombasa law courts","Tononoka law courts","Shanzu law courts"
+Aysha Rajab,Female,RAIS/2024/52064,872660762,,Mavoko law courts,JKIA law courts,Milimani law courts
+Halwa Mahmoud,Female,RAI/2024/952032,42899345,,Mombasa law courts,Tononoka law courts,Mombasa law courts
+Salma Sukto,Female,RAIS/2024/,,,,
+Rukia Halkano,Female,RAIS/2024/52181,,,,
+Ikran Abdi,Female,RAIS/2024/,,,,
+Ahmed Ali,Male,RAIS/2024/51810,P01256921,,Milimani law courts,Milimani law courts,Supreme law courts
+Adan Ibrahim,Male,RAIS/2024/52338,42252960,,Kajiado law courts,Mombasa law courts,Marsabit law courts
+Here is the data from your latest image, formatted as CSV. You can copy and save it as a `.csv` file for easy import into Excel:
+
+```csv
+Name,Phone Number
+Ashley,014941287
+Joan,0710172918
+Akha,0757884242
+Fauzia,0703780660
+Hafsa,014759948
+Dhahabo,0768513795
+Hassan,0797553187
+Venessa,0702154045
+Kadar,072012669
+Abubakar,0757325707
+Mohammed,0727454299
+Muhiyidin,0723649406
+Salma,0111837900
+Ayesha,0790604475
+Hawa,0795951296
+Salma,0714064167
+Rukia,0769410073
+Imran,0799880857
+Ahmed,0719332136
+Adan,0791204120
+```
+
+Copy and paste the above data into a text file and save it as `contacts.csv` for seamless Excel use.
+

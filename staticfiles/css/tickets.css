@@ -1,0 +1,234 @@
+
+.tickets-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-top: 50px;
+}
+
+.section-header h2 {
+  font-size: 1.8em;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.ticket-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ticket-actions .btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background-color 0.3s ease;
+}
+
+.ticket-actions .btn:hover {
+  background-color: #0056b3;
+}
+
+.ticket-actions .ticket-search {
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  font-size: 0.9em;
+  width: 250px;
+  max-width: 100%;
+}
+
+.ticket-table-wrapper {
+  overflow-x: auto;
+}
+
+.ticket-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  min-width: 600px;
+}
+
+.ticket-table th,
+.ticket-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.ticket-table th {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.ticket-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  font-weight: 500;
+  color: white;
+}
+.badge-in_progress { background-color: #ffc107; color: #212529; }
+.badge-resolved { background-color: #17a2b8; }
+
+.badge-open { background-color: #28a745; }
+.badge-closed { background-color: #6c757d; }
+.badge-pending { background-color: #ffc107; color: #212529; }
+
+.badge-high { background-color: #dc3545; }
+.badge-medium { background-color: #ffc107; color: #212529; }
+.badge-low { background-color: #17a2b8; }
+
+.view-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+.status-filter-form {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.status-filter-form select {
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-size: 0.9em;
+  background-color: #fff;
+  color: #212529;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.status-filter-form select:hover {
+  background-color: #f1f1f1;
+}
+/* ===============================
+   Responsive Adjustments
+================================== */
+/* Pagination container styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Pagination links container */
+.step-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Individual page links */
+.step-links a {
+  padding: 8px 16px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #007bff;
+  font-size: 0.95em;
+  text-decoration: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.step-links a:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.step-links a:active,
+.step-links a:focus {
+  background-color: #0056b3;
+  color: white;
+  border-color: #0056b3;
+}
+
+/* Current page display styling */
+.step-links .current {
+  padding: 8px 16px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  font-weight: bold;
+}
+/*escalation*/
+.badge-escalated {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 0.75rem;
+  padding: 3px 7px;
+  border-radius: 5px;
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .tickets-container {
+    padding: 20px;
+  }
+
+  .section-header h2 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .ticket-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ticket-actions .btn,
+  .ticket-actions .ticket-search {
+    width: 100%;
+  }
+
+  .ticket-actions .ticket-search {
+    margin-top: 10px;
+  }
+
+  .ticket-table {
+    font-size: 0.9em;
+  }
+  .status-filter-form {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .status-filter-form select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ticket-table {
+    min-width: 100%;
+    font-size: 0.85em;
+  }
+
+  .section-header h2 {
+    font-size: 1.3em;
+  }
+  .step-links a {
+    font-size: 0.85em;
+    padding: 6px 12px;
+  }
+}
+

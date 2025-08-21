@@ -1,0 +1,149 @@
+/* Base Container Styles */
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+}
+
+/* Headings */
+.container h2 {
+  color: #007bff;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+/* Labels */
+.container label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #343a40;
+}
+
+/* Text Inputs */
+.container input[type="text"],
+.container input[type="email"] {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Checkbox */
+.container input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Buttons */
+.container .btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  text-align: center;
+  display: inline-block;
+}
+
+.container .btn.cancel {
+  background-color: #6c757d;
+  margin-left: 1rem;
+}
+
+.container .btn:hover {
+  background-color: #0056b3;
+}
+
+.container .btn.cancel:hover {
+  background-color: #5a6268;
+}
+
+/* Optional: Button Group Flexbox Wrapper */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-group .btn {
+  min-width: 120px;
+  text-align: center;
+}
+
+/* User Info View Section */
+.user-info p {
+  margin: 0.6rem 0;
+  font-size: 1rem;
+}
+
+.user-info strong {
+  color: #343a40;
+}
+
+/* ============================= */
+/*     MOBILE RESPONSIVENESS     */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+
+  .container h2 {
+    font-size: 1.6rem;
+  }
+
+  .container .btn {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .container h2 {
+    font-size: 1.4rem;
+  }
+
+  .container input[type="text"],
+  .container input[type="email"] {
+    font-size: 0.95rem;
+    padding: 0.65rem;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .container .btn,
+  .container .btn.cancel {
+    width: 100%;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+  }
+}

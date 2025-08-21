@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}">
+{% endblock%}
+{% block title %}Error{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-card">
+        <h2>🚫 Error Occurred</h2>
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        <a href="{% url 'ticketing_dashboard' %}" class="btn btn-primary">Back to Tickets</a>
+    </div>
+</div>
+{% endblock %}

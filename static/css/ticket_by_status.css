@@ -1,0 +1,168 @@
+/* Container */
+.container.ticket-status-container {
+  max-width: 1100px;
+  margin: 40px auto 60px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+h2 {
+  font-size: 2.4rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Table */
+.table.ticket-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Table Head */
+.table thead {
+  background: linear-gradient(90deg, #4a90e2, #357ABD);
+  color: #fff;
+}
+
+.table thead th {
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 14px 16px;
+  text-align: center;
+  border: none;
+  letter-spacing: 0.05em;
+}
+
+/* Table Body */
+.table tbody tr {
+  transition: background-color 0.25s ease, transform 0.15s ease;
+  cursor: default;
+}
+
+.table tbody tr:hover {
+  background-color: #f0f7ff;
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(53, 122, 189, 0.15);
+}
+
+/* Table Cells */
+.table td {
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: #34495e;
+  border-bottom: 1px solid #e0e4e8;
+  text-align: center;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+/* Title cell aligned left for readability */
+.table td.title-cell {
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* No record row */
+.table td.no-record {
+  color: #999;
+  font-style: italic;
+  font-size: 1.1rem;
+  padding: 40px 0;
+}
+
+/* Status label with colored badges */
+.status-label {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Different status colors */
+.status-open {
+  background-color: #27ae60;  /* green */
+}
+.status-in_progress {
+  background-color: #f39c12;  /* orange */
+}
+.status-pending {
+  background-color: #8e44ad;  /* purple */
+}
+.status-closed {
+  background-color: #c0392b;  /* red */
+}
+.status-resolved {
+  background-color: #2980b9;  /* blue */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container.ticket-status-container {
+    margin: 20px 10px 40px 10px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  .table thead {
+    display: none; /* hide table headers on small devices */
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    background: #fff;
+    padding: 15px 20px;
+  }
+
+  .table tbody tr:hover {
+    transform: none;
+    box-shadow: 0 3px 15px rgba(53, 122, 189, 0.2);
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border: none;
+    font-size: 1rem;
+  }
+
+  .table td.title-cell {
+    max-width: 60%;
+    white-space: normal;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #555;
+    flex-basis: 40%;
+    text-transform: uppercase;
+  }
+}

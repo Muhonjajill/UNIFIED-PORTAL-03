@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit_version.css' %}">
+{% endblock %}
+
+{% block title %}Edit Version - {{ version.terminal }}{% endblock %}
+
+{% block content %}
+
+<div class="edit-version-container">
+  <div class="edit-version-card">
+
+    <div class="edit-version-header">
+      <h2 class="edit-version-title">
+        <span class="edit-version-icon">✏️</span> Edit Version
+        <span class="edit-version-terminal">{{ version.terminal }}</span>
+      </h2>
+      <p class="edit-version-subtitle">
+        Update the details for this version entry.
+      </p>
+    </div>
+
+    <form method="post" class="edit-version-form">
+      {% csrf_token %}
+
+      <div class="form-section version-details-section">
+        <h3 class="section-title">Core Version Data</h3>
+        <div class="form-grid">
+          {# Terminal Field #}
+          <div class="form-group">
+            <label for="{{ form.terminal.id_for_label }}">{{ form.terminal.label }}</label>
+            {{ form.terminal|add_class:"form-input" }}
+          </div>
+
+          {# Manufacturer Field #}
+          <div class="form-group">
+            <label for="{{ form.manufacturer.id_for_label }}">{{ form.manufacturer.label }}</label>
+            {{ form.manufacturer|add_class:"form-input" }}
+          </div>
+
+          {# Template Field #}
+          <div class="form-group">
+            <label for="{{ form.template.id_for_label }}">{{ form.template.label }}</label>
+            {{ form.template|add_class:"form-input" }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section software-versions-section">
+        <h3 class="section-title">Software & Firmware</h3>
+        <div class="form-grid">
+          {# Firmware Field #}
+          <div class="form-group">
+            <label for="{{ form.firmware.id_for_label }}">{{ form.firmware.label }}</label>
+            {{ form.firmware|add_class:"form-input" }}
+          </div>
+
+          {# XFS Field #}
+          <div class="form-group">
+            <label for="{{ form.xfs.id_for_label }}">{{ form.xfs.label }}</label>
+            {{ form.xfs|add_class:"form-input" }}
+          </div>
+
+          {# Ejournal Field #}
+          <div class="form-group">
+            <label for="{{ form.ejournal.id_for_label }}">{{ form.ejournal.label }}</label>
+            {{ form.ejournal|add_class:"form-input" }}
+          </div>
+
+          {# App Version Field #}
+          <div class="form-group">
+            <label for="{{ form.app_version.id_for_label }}">{{ form.app_version.label }}</label>
+            {{ form.app_version|add_class:"form-input" }}
+          </div>
+        </div>
+      </div>
+
+     <!-- <div class="form-section assignment-section">
+        <h3 class="section-title">Assignment</h3>
+        <div class="form-grid">
+          {# Responsible Field #}
+          <div class="form-group">
+            <label for="{{ form.responsible.id_for_label }}">{{ form.responsible.label }}</label>
+            {{ form.responsible|add_class:"form-input" }}
+          </div>
+        </div>
+      </div>-->
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary animate-bounce-once">
+          <span class="btn-icon">💾</span> Save Changes
+        </button>
+        <a href="{% url 'version_detail' version.pk %}" class="btn btn-secondary">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

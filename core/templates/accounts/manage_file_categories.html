@@ -1,0 +1,106 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block title %}Manage File Categories{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/manage_file_categories.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="category-container">
+  <h2>📂 Manage File Categories</h2>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="alert alert-success">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <!-- Add Category Form -->
+  <div class="card add-category-card">
+    <form method="post" class="category-form">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="create">
+      <input type="text" name="name" placeholder="New Category Name" required>
+      
+      <!-- Only show the icon dropdown if it's a new category -->
+      {% if not category.icon %}
+        <label for="icon">Choose an Icon:</label>
+        <select name="icon" id="icon" required>
+          <option value="administration_and_governance">Administration & Governance</option>
+          <option value="compliance_and_risk_management">Compliance & Risk Management</option>
+          <option value="financial">Financial</option>
+          <option value="human_resources">Human Resources</option>
+          <option value="it_and_technical">IT & Technical</option>
+          <option value="legal">Legal</option>
+          <option value="operations_and_projects">Operations & Projects</option>
+          <option value="sales_and_marketing">Sales & Marketing</option>
+        </select>
+      {% endif %}
+
+      <button type="submit" class="btn btn-create">➕ Add Category</button>
+    </form>
+  </div>
+
+  <!-- Categories Table -->
+  <div class="card table-card">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Icon</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Category Edit Form -->
+      {% for cat in categories %}
+      <tr>
+        <td>
+          <form method="post" class="inline-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="category_id" value="{{ cat.id }}">
+            <input type="text" name="new_name" value="{{ cat.name }}" required>
+            
+            {% if not cat.icon %}
+              <label for="icon">Choose an Icon:</label>
+              <select name="icon" id="icon" required>
+                <option value="administration_and_governance" {% if cat.icon == 'administration_and_governance' %}selected{% endif %}>Administration & Governance</option>
+                <option value="compliance_and_risk_management" {% if cat.icon == 'compliance_and_risk_management' %}selected{% endif %}>Compliance & Risk Management</option>
+                <option value="financial" {% if cat.icon == 'financial' %}selected{% endif %}>Financial</option>
+                <option value="human_resources" {% if cat.icon == 'human_resources' %}selected{% endif %}>Human Resources</option>
+                <option value="it_and_technical" {% if cat.icon == 'it_and_technical' %}selected{% endif %}>IT & Technical</option>
+                <option value="legal" {% if cat.icon == 'legal' %}selected{% endif %}>Legal</option>
+                <option value="operations_and_projects" {% if cat.icon == 'operations_and_projects' %}selected{% endif %}>Operations & Projects</option>
+                <option value="sales_and_marketing" {% if cat.icon == 'sales_and_marketing' %}selected{% endif %}>Sales & Marketing</option>
+              </select>
+            {% endif %}
+
+            <button type="submit" class="btn btn-update">✏️</button>
+          </form>
+        </td>
+        <td>
+          <div class="category-icon-wrapper">
+            <img src="{% static 'icons/category-specific-icons/' %}{{ cat.icon }}.png" alt="{{ cat.name }} icon" class="category-icon large-icon">
+          </div>
+        </td>
+        <td>
+          <form method="post" class="inline-form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="category_id" value="{{ cat.id }}">
+            <button type="submit" class="btn btn-delete" onclick="return confirm('Delete this category?')">🗑️</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

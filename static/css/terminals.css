@@ -1,0 +1,158 @@
+/* Global transitions for smooth effects */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Page container with padding, rounded corners, and shadows */
+.page-container {
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  max-width: 1100px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Table section with rounded corners and hover effects */
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.terminal-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.terminal-table th,
+.terminal-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.terminal-table th {
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
+.terminal-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.terminal-table tbody tr {
+  cursor: pointer;
+}
+
+/* Modal styles */
+.modal-dialog {
+  max-width: 800px;
+  border-radius: 10px;
+  /* Removing animation to avoid performance issues */
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.ticket-item {
+  margin-bottom: 1rem;
+}
+
+.ticket-item a {
+  color: #123692;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ticket-item a:hover {
+  text-decoration: underline;
+  color: #172d69;
+}
+
+/* Pagination controls */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.page-links {
+  display: inline-block;
+}
+
+.page-links a {
+  color: #123692;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 5px;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.page-links a:hover {
+  background-color: #f1f1f1;
+}
+
+.current-page {
+  padding: 8px 16px;
+  font-size: 1em;
+  color: #6c757d;
+}
+
+/* Button Hover Effects */
+.btn:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #172d69;
+  border-color: #172d69;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.terminal-table td .btn {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 4px; 
+  vertical-align: middle;
+}
+
+.terminal-table td {
+  white-space: nowrap;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .terminal-table th, .terminal-table td {
+    padding: 10px;
+  }
+}

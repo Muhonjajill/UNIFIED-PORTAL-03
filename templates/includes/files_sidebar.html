@@ -1,0 +1,17 @@
+{% load static %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/file_management_dashboard.css' %}">
+
+<div class="sidebar" id="sidebar">
+  <img src="{% static 'icons/logo.png' %}" class="sidebar-logo" alt="Blue River Logo">
+
+  <ul>
+    <li><a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-th-large icon"></i><span>Dashboard</span></a></li>
+    <li><a href="{% url 'file_list' %}" class="nav-link"><i class="fas fa-folder icon"></i><span>Files</span></a></li>
+    <li><a href="{% url 'file_list' %}?sort=recent" class="nav-link"><i class="fas fa-history icon"></i><span>Recent</span></a></li>
+    <li><a href="{% url 'user_list' %}" class="nav-link"><i class="fas fa-users icon"></i><span>Users</span></a></li>
+  </ul>
+</div>
+
+<script src="{% static 'js/files_navbar.js' %}"></script>

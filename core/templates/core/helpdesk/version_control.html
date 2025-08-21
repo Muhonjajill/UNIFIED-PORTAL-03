@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/version_controls.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4" id="body">
+  <h2>Version Controls</h2>
+
+  <!-- Button to trigger modal -->
+  <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createVersionModal">
+    + Create Version
+  </button>
+
+  <div class="filters-row">
+    <div>
+      <label for="terminalFilter">Terminal:</label>
+      <select id="terminalFilter" class="filter-select">
+        <option value="All">All Terminals</option>
+        {% for terminal in terminals %}
+          <option value="{{ terminal.terminal__id }}">{{ terminal.terminal__branch_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label for="manufacturerFilter">Manufacturer:</label>
+      <select id="manufacturerFilter" class="filter-select">
+        <option value="All">All Manufacturers</option>
+        {% for manufacturer in manufacturers %}
+          <option value="{{ manufacturer }}">{{ manufacturer }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+
+  <!-- Table displaying all versions -->
+  <div id="versionTableContainer">
+    
+    {% include 'core/helpdesk/partials/version_table.html' %}
+  </div>
+
+  <!-- Modal for Create Version -->
+<div class="modal fade" id="createVersionModal" tabindex="-1" aria-labelledby="createVersionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST" action="{% url 'version_controls' %}" id="versionForm">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="createVersionModalLabel">Create Version Entry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6 form-group">{{ form.terminal.label_tag }}{{ form.terminal }}</div>
+          <div class="col-md-6 form-group">{{ form.manufacturer.label_tag }}{{ form.manufacturer }}</div>
+          <div class="col-md-6 form-group">{{ form.template.label_tag }}{{ form.template }}</div>
+          <div class="col-md-6 form-group">{{ form.firmware.label_tag }}{{ form.firmware }}</div>
+
+         <!-- GRG specific -->
+          <div class="col-md-6 form-group" id="brits-wrapper">{{ form.brits.label_tag }}{{ form.brits }}</div>
+          <div class="col-md-6 form-group" id="xfs-wrapper">{{ form.xfs.label_tag }}{{ form.xfs }}</div>
+          <div class="col-md-6 form-group" id="ejournal-wrapper">{{ form.ejournal.label_tag }}{{ form.ejournal }}</div>
+
+          <!-- Hitachi specific -->
+          <div class="col-md-6 form-group" id="neo-atm-wrapper">{{ form.neo_atm.label_tag }}{{ form.neo_atm }}</div>
+          <div class="col-md-12 form-group" id="app-version-wrapper">{{ form.app_version.label_tag }}{{ form.app_version }}</div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit"  name="create" class="btn btn-primary">Create</button>
+          <button type="submit" name="create_another" class="btn btn-secondary">Create & Create Another</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function toggleFields(manufacturer) {
+    const isGRG = manufacturer.toLowerCase().includes('grg');
+    const isHitachi = manufacturer.toLowerCase().includes('hitachi');
+
+    // GRG-only fields
+    document.getElementById('brits-wrapper').style.display = isGRG ? 'block' : 'none';
+    document.getElementById('xfs-wrapper').style.display = isGRG ? 'block' : 'none';
+    document.getElementById('ejournal-wrapper').style.display = isGRG ? 'block' : 'none';
+
+    // Hitachi-only fields
+    document.getElementById('neo-atm-wrapper').style.display = isHitachi ? 'block' : 'none';
+    document.getElementById('app-version-wrapper').style.display = isHitachi ? 'block' : 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const manufacturerInput = document.getElementById('id_manufacturer');
+    if (manufacturerInput) {
+      manufacturerInput.addEventListener('change', function () {
+        toggleFields(this.value);
+      });
+      toggleFields(manufacturerInput.value);
+    }
+  });
+</script>
+<script>
+  function applyFilters() {
+    const terminal = document.getElementById('terminalFilter').value;
+    const manufacturer = document.getElementById('manufacturerFilter').value;
+
+    const params = new URLSearchParams({
+      terminal: terminal,
+      manufacturer: manufacturer
+    });
+
+    fetch(`?${params.toString()}`, {
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('versionTableContainer').innerHTML = html;
+    });
+  }
+
+  // Trigger filter when dropdowns change
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('terminalFilter').addEventListener('change', applyFilters);
+    document.getElementById('manufacturerFilter').addEventListener('change', applyFilters);
+  });
+</script>
+
+
+
+
+{% endblock %}

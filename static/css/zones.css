@@ -1,0 +1,139 @@
+.page-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 2rem;
+}
+
+.zone-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.zone-form input {
+  padding: 10px;
+  flex: 1 1 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.zone-form .btn {
+  background-color: #123692;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.zone-form .btn:hover {
+  background-color: #172d69;
+}
+
+.zone-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.zone-table th,
+.zone-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.zone-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+.view-link {
+  color: #dc3545;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+.zone-form select {
+  padding: 10px;
+  flex: 1 1 300px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.messages .alert {
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  font-size: 0.95rem;
+}
+
+.page-container h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.page-container p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.table-responsive {
+  margin-top: 1.5rem;
+}
+
+.zone-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  padding: 8px 16px;
+  margin: 0 4px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination .current {
+  padding: 8px 16px;
+  font-weight: bold;
+  background-color: #123692;
+  color: white;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+  .zone-form {
+    flex-direction: column;
+  }
+
+  .zone-table th,
+  .zone-table td {
+    font-size: 0.9rem;
+  }
+}

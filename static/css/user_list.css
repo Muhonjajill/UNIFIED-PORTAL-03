@@ -1,0 +1,190 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 1rem;
+}
+
+.page-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 1000px;
+  margin: auto;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table thead {
+  background-color: #123692;
+  color: white;
+}
+
+.user-table th, .user-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.user-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge.admin {
+  background-color: #123692;
+  color: white;
+}
+
+.badge.editor {
+  background-color: #28a745;
+  color: white;
+}
+
+.badge.viewer {
+  background-color: #6c757d;
+  color: white;
+}
+
+.badge.no-role {
+  background-color: #cccccc;
+  color: #333;
+}
+
+.badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.actions a.btn {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  margin-right: 6px;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+
+.actions a.view {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.actions a.edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.actions a.delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.actions .btn.delete {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions .btn.delete:hover {
+  opacity: 0.85;
+}
+
+
+.actions a:hover {
+  opacity: 0.85;
+}
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  padding: 8px 16px;
+  margin: 0 4px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination .current {
+  padding: 8px 16px;
+  font-weight: bold;
+  background-color: #123692;
+  color: white;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive Table for Mobile */
+@media (max-width: 768px) {
+  .user-table, .user-table thead, .user-table tbody, .user-table th, .user-table td, .user-table tr {
+    display: block;
+  }
+
+  .user-table thead {
+    display: none;
+  }
+
+  .user-table tr {
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    background: #ffffff;
+  }
+
+  .user-table td {
+    text-align: left;
+    position: relative;
+    padding-left: 50%;
+    font-size: 0.9rem;
+  }
+
+  .user-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .actions {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .actions a {
+    display: inline-block;
+    margin: 0.2rem 0.4rem;
+  }
+}

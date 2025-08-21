@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ernm:NewReleaseMessage xmlns:ernm="http://ddex.net/xml/ern/383" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" LanguageAndScriptCode="en" MessageSchemaVersionId="ern/383" xs:schemaLocation="http://ddex.net/xml/ern/383 http://ddex.net/xml/ern/383/release-notification.xsd">
+<MessageHeader>
+   <MessageThreadId>W272604971</MessageThreadId>
+   <MessageId>W272604971</MessageId>
+   <MessageSender>
+      <PartyId>PADPIDA2007050901U</PartyId>
+      <PartyName>
+         <FullName>Warner Music Group</FullName>
+      </PartyName>
+   </MessageSender>    
+   <MessageRecipient>
+      <PartyId>PADPIDA2016050304I</PartyId>
+      <PartyName>
+         <FullName>6481-Boomplay</FullName>
+      </PartyName>
+   </MessageRecipient>
+   <MessageCreatedDateTime>2021-09-28T06:48:47+00:00</MessageCreatedDateTime>
+   <MessageControlType>LiveMessage</MessageControlType>
+</MessageHeader>
+<UpdateIndicator>OriginalMessage</UpdateIndicator>
+<ResourceList>  
+<SoundRecording>
+<SoundRecordingType>MusicalWorkSoundRecording</SoundRecordingType><SoundRecordingId>
+<ISRC>BX68J2100012</ISRC></SoundRecordingId> 
+<ResourceReference>A1</ResourceReference>	   <ReferenceTitle>
+<TitleText>Karma</TitleText>	   </ReferenceTitle>
+<LanguageOfPerformance>pt</LanguageOfPerformance>        <Duration>PT4M41.098S</Duration>
+<SoundRecordingDetailsByTerritory>      
+<TerritoryCode>Worldwide</TerritoryCode>    <Title TitleType="FormalTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+    <Title TitleType="DisplayTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+<DisplayArtist>
+<PartyName>
+<FullName>Faria</FullName>
+</PartyName><PartyId Namespace="DPID:PADPIDA2007050901U">2110699</PartyId>	   <ArtistRole>MainArtist</ArtistRole>
+	</DisplayArtist>
+<ResourceContributor>
+<PartyName>
+<FullName>S4LT</FullName> 
+</PartyName><ResourceContributorRole>Producer</ResourceContributorRole>	</ResourceContributor>
+<ResourceContributor>
+<PartyName>
+<FullName>Thiago Maximino</FullName> 
+</PartyName><ResourceContributorRole>Producer</ResourceContributorRole>	</ResourceContributor>
+<IndirectResourceContributor>
+<PartyName>
+<FullName>Deluca</FullName> 
+</PartyName><IndirectResourceContributorRole>Composer</IndirectResourceContributorRole>	</IndirectResourceContributor>
+<IndirectResourceContributor>
+<PartyName>
+<FullName>Faria</FullName> 
+</PartyName><IndirectResourceContributorRole>Composer</IndirectResourceContributorRole>	</IndirectResourceContributor>
+<IndirectResourceContributor>
+<PartyName>
+<FullName>Triggie</FullName> 
+</PartyName><IndirectResourceContributorRole>Composer</IndirectResourceContributorRole>	</IndirectResourceContributor>
+		   <LabelName>FARIA</LabelName>
+        <PLine>
+             <Year>2021</Year>
+             <PLineText>℗ 2021 Faria</PLineText>
+        </PLine>
+<Genre>
+  <GenreText>R&amp;B</GenreText>
+  <SubGenre>Pop</SubGenre>
+</Genre>
+<ParentalWarningType>NoAdviceAvailable</ParentalWarningType><TechnicalSoundRecordingDetails><TechnicalResourceDetailsReference>T1</TechnicalResourceDetailsReference><AudioCodecType>FLAC</AudioCodecType><NumberOfChannels>2</NumberOfChannels><SamplingRate UnitOfMeasure="kHz">44.1</SamplingRate><BitsPerSample>16</BitsPerSample><IsPreview>false</IsPreview><PreviewDetails><StartPoint>93</StartPoint><Duration>PT0H0M30.000S</Duration><ExpressionType>Informative</ExpressionType></PreviewDetails><File><FileName>190296496554_BX68J2100012_44_16_LL.flac</FileName><FilePath>resources/</FilePath><HashSum><HashSum>55428717738ccbd97b0f322e3270d46e</HashSum><HashSumAlgorithmType>MD5</HashSumAlgorithmType></HashSum></File></TechnicalSoundRecordingDetails></SoundRecordingDetailsByTerritory>
+</SoundRecording>    
+	      <Image>
+			<ImageType>FrontCoverImage</ImageType>
+			<ImageId>
+				<ProprietaryId Namespace="DPID:PADPIDA2007050901U">190296496554_COVERART</ProprietaryId>
+			</ImageId>
+			<ResourceReference>A2</ResourceReference>
+			<ImageDetailsByTerritory>
+				<TerritoryCode>Worldwide</TerritoryCode>	
+<TechnicalImageDetails><TechnicalResourceDetailsReference>T2</TechnicalResourceDetailsReference><ImageCodecType>JPEG</ImageCodecType><ImageHeight>2048</ImageHeight><ImageWidth>2048</ImageWidth><File><FileName>190296496554.jpg</FileName><FilePath>resources/</FilePath><HashSum><HashSum>cad9f1163694e2af526326c4416135ad</HashSum><HashSumAlgorithmType>MD5</HashSumAlgorithmType></HashSum></File></TechnicalImageDetails>			</ImageDetailsByTerritory>
+		</Image>		
+</ResourceList>
+<ReleaseList>  
+  <Release IsMainRelease="true">
+  <ReleaseId>
+<GRid>A10302B0005982538V</GRid>      <ICPN IsEan="false">190296496554</ICPN>
+  </ReleaseId>
+<ReleaseReference>R0</ReleaseReference>	   <ReferenceTitle>
+<TitleText>Karma</TitleText>	   </ReferenceTitle>
+  <ReleaseResourceReferenceList>
+<ReleaseResourceReference ReleaseResourceType="PrimaryResource">A1</ReleaseResourceReference>
+ <ReleaseResourceReference ReleaseResourceType="SecondaryResource">A2</ReleaseResourceReference> 
+  </ReleaseResourceReferenceList>    
+<ReleaseType>Single</ReleaseType>  <ReleaseDetailsByTerritory> 
+<TerritoryCode>Worldwide</TerritoryCode><DisplayArtistName>Faria</DisplayArtistName>		<LabelName>FARIA</LabelName>
+    <Title TitleType="FormalTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+    <Title TitleType="DisplayTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+    <Title TitleType="GroupingTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+<DisplayArtist>
+<PartyName>
+<FullName>Faria</FullName>
+</PartyName><PartyId Namespace="DPID:PADPIDA2007050901U">2110699</PartyId>	   <ArtistRole>MainArtist</ArtistRole>
+	</DisplayArtist>
+<DisplayArtist>
+<PartyName>
+<FullName>Deluca</FullName></PartyName>	   <ArtistRole>Composer</ArtistRole>
+	</DisplayArtist>
+<DisplayArtist>
+<PartyName>
+<FullName>Faria</FullName></PartyName><PartyId Namespace="DPID:PADPIDA2007050901U">2110699</PartyId>	   <ArtistRole>Composer</ArtistRole>
+	</DisplayArtist>
+<DisplayArtist>
+<PartyName>
+<FullName>S4LT</FullName></PartyName>	   <ArtistRole>Producer</ArtistRole>
+	</DisplayArtist>
+<DisplayArtist>
+<PartyName>
+<FullName>Sony Music Publishing</FullName></PartyName><ArtistRole Namespace="DPID:PADPIDA2007050901U" UserDefinedValue="Publisher">UserDefined</ArtistRole>	</DisplayArtist>
+<DisplayArtist>
+<PartyName>
+<FullName>Thiago Maximino</FullName></PartyName>	   <ArtistRole>Producer</ArtistRole>
+	</DisplayArtist>
+<DisplayArtist>
+<PartyName>
+<FullName>Triggie</FullName></PartyName>	   <ArtistRole>Composer</ArtistRole>
+	</DisplayArtist>
+<ParentalWarningType>NoAdviceAvailable</ParentalWarningType>    <ResourceGroup>
+	   <ResourceGroup>
+<SequenceNumber>1</SequenceNumber>		 <ResourceGroupContentItem>
+<SequenceNumber>1</SequenceNumber><ResourceType>SoundRecording</ResourceType><ReleaseResourceReference ReleaseResourceType="PrimaryResource">A1</ReleaseResourceReference>		  </ResourceGroupContentItem>
+			</ResourceGroup>
+	       
+        <ResourceGroupContentItem>
+           <ResourceType>Image</ResourceType> 
+          <ReleaseResourceReference ReleaseResourceType="SecondaryResource">A2</ReleaseResourceReference>          
+        </ResourceGroupContentItem>
+    </ResourceGroup>
+<Genre>
+  <GenreText>R&amp;B</GenreText>
+  <SubGenre>Pop</SubGenre>
+</Genre>
+ <ReleaseDate>2021-10-01</ReleaseDate>
+<Keywords>Faria Karma R&amp;B Pop</Keywords>  </ReleaseDetailsByTerritory>
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>CI</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>CM</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>GH</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>KE</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>NG</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>RW</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>SN</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>TZ</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>UG</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+		    <ReleaseDetailsByTerritory> 
+			  <TerritoryCode>ZM</TerritoryCode>
+              <ReleaseDate>2021-10-01</ReleaseDate>	
+            </ReleaseDetailsByTerritory>  
+        <PLine>
+             <Year>2021</Year>
+             <PLineText>℗ 2021 Faria</PLineText>
+        </PLine>
+		   <CLine>
+             <Year>2021</Year>
+             <CLineText>© 2021 DeLuca, Faria, Triggie</CLineText>
+        </CLine>
+</Release>    
+  <Release>
+  <ReleaseId>
+<GRid>A10302B0005982539T</GRid><ISRC>BX68J2100012</ISRC>  </ReleaseId>
+<ReleaseReference>R1</ReleaseReference>	   <ReferenceTitle>
+<TitleText>Karma</TitleText>	   </ReferenceTitle>
+  <ReleaseResourceReferenceList>
+<ReleaseResourceReference ReleaseResourceType="PrimaryResource">A1</ReleaseResourceReference>
+  </ReleaseResourceReferenceList>    
+<ReleaseType>TrackRelease</ReleaseType>  <ReleaseDetailsByTerritory> 
+<TerritoryCode>Worldwide</TerritoryCode><DisplayArtistName>Faria</DisplayArtistName>		<LabelName>FARIA</LabelName>
+    <Title TitleType="FormalTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+    <Title TitleType="DisplayTitle">
+ <TitleText>Karma</TitleText>
+    </Title>  
+<DisplayArtist>
+<PartyName>
+<FullName>Faria</FullName>
+</PartyName><PartyId Namespace="DPID:PADPIDA2007050901U">2110699</PartyId>	   <ArtistRole>MainArtist</ArtistRole>
+	</DisplayArtist>
+<ParentalWarningType>NoAdviceAvailable</ParentalWarningType>    <ResourceGroup>
+       <SequenceNumber>1</SequenceNumber>
+        <ResourceGroupContentItem>
+           <SequenceNumber>1</SequenceNumber>
+<ResourceType>SoundRecording</ResourceType><ReleaseResourceReference ReleaseResourceType="PrimaryResource">A1</ReleaseResourceReference>        </ResourceGroupContentItem>
+    </ResourceGroup>
+<Genre>
+  <GenreText>R&amp;B</GenreText>
+  <SubGenre>Pop</SubGenre>
+</Genre>
+<Keywords>Faria Karma R&amp;B Pop</Keywords>  </ReleaseDetailsByTerritory>
+        <PLine>
+             <Year>2021</Year>
+             <PLineText>℗ 2021 Faria</PLineText>
+        </PLine>
+</Release>    
+</ReleaseList>
+<DealList>
+    <ReleaseDeal>
+      <DealReleaseReference>R0</DealReleaseReference>
+      <Deal>
+        <DealTerms>
+          <CommercialModelType>PayAsYouGoModel</CommercialModelType>
+          <Usage>
+            <UseType>PermanentDownload</UseType>
+          </Usage>
+          <TerritoryCode>Worldwide</TerritoryCode>
+          <ValidityPeriod>
+            <StartDate>2021-10-07</StartDate>
+          </ValidityPeriod>
+        </DealTerms>
+      </Deal>
+      <Deal>
+        <DealTerms>
+          <CommercialModelType>SubscriptionModel</CommercialModelType>
+          <Usage>
+            <UseType>ConditionalDownload</UseType>
+            <UseType>NonInteractiveStream</UseType>
+            <UseType>OnDemandStream</UseType>
+          </Usage>
+          <TerritoryCode>Worldwide</TerritoryCode>
+          <ValidityPeriod>
+            <StartDate>2021-10-07</StartDate>
+          </ValidityPeriod>
+        </DealTerms>
+      </Deal>
+      <Deal>
+        <DealTerms>
+          <CommercialModelType>AdvertisementSupportedModel</CommercialModelType>
+          <Usage>
+            <UseType>OnDemandStream</UseType>
+            <UseType>NonInteractiveStream</UseType>
+          </Usage>
+          <TerritoryCode>Worldwide</TerritoryCode>
+          <ValidityPeriod>
+            <StartDate>2021-10-07</StartDate>
+          </ValidityPeriod>
+        </DealTerms>
+      </Deal>
+      <EffectiveDate>2021-10-07</EffectiveDate>
+    </ReleaseDeal>
+    <ReleaseDeal>
+      <DealReleaseReference>R1</DealReleaseReference>
+      <Deal>
+        <DealTerms>
+          <CommercialModelType>PayAsYouGoModel</CommercialModelType>
+          <Usage>
+            <UseType>PermanentDownload</UseType>
+          </Usage>
+          <TerritoryCode>Worldwide</TerritoryCode>
+          <ValidityPeriod>
+            <StartDate>2021-10-07</StartDate>
+          </ValidityPeriod>
+        </DealTerms>
+      </Deal>
+      <Deal>
+        <DealTerms>
+          <CommercialModelType>SubscriptionModel</CommercialModelType>
+          <Usage>
+            <UseType>ConditionalDownload</UseType>
+            <UseType>NonInteractiveStream</UseType>
+            <UseType>OnDemandStream</UseType>
+          </Usage>
+          <TerritoryCode>Worldwide</TerritoryCode>
+          <ValidityPeriod>
+            <StartDate>2021-10-07</StartDate>
+          </ValidityPeriod>
+        </DealTerms>
+      </Deal>
+      <Deal>
+        <DealTerms>
+          <CommercialModelType>AdvertisementSupportedModel</CommercialModelType>
+          <Usage>
+            <UseType>OnDemandStream</UseType>
+            <UseType>NonInteractiveStream</UseType>
+          </Usage>
+          <TerritoryCode>Worldwide</TerritoryCode>
+          <ValidityPeriod>
+            <StartDate>2021-10-07</StartDate>
+          </ValidityPeriod>
+        </DealTerms>
+      </Deal>
+      <EffectiveDate>2021-10-07</EffectiveDate>
+    </ReleaseDeal>
+  </DealList>
+</ernm:NewReleaseMessage>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+</head>
+<body>
+  <header class="dashboard-header">
+    <div class="logo"><i class="fas fa-tools"></i> AdminPanel</div>
+    <nav>
+      <form id="logout-form" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit"><i class="fas fa-sign-out-alt"></i> 🚪 Logout</button>
+      </form>
+    </nav>
+  </header>
+
+  <main class="dashboard-container">
+    <section class="welcome-card">
+      <h2>Welcome, {{ user.username }}</h2>
+      <p>You have administrative access. Use the panels below to manage the system.</p>
+    </section>
+
+    <section class="search-section">
+      <form method="get" action="{% url 'admin_dashboard' %}" class="search-form">
+        <input type="text" name="q" placeholder="Search users by username, email..." value="{{ request.GET.q }}">
+        <button type="submit"><i class="fas fa-search"></i> Search</button>
+      </form>
+    </section>
+
+    {% if request.GET.q %}
+      <p class="search-results">
+        <strong>{{ users|length }}</strong> users,
+        <strong>{{ customers|length }}</strong> customers,
+        <strong>{{ terminals|length }}</strong> terminals match
+        "<span style="color:#007bff">{{ request.GET.q }}</span>"
+      </p>
+    {% endif %}
+
+
+
+
+    <section class="dashboard-grid">
+      <div class="card stat-card">
+        <i class="fas fa-users card-icon"></i>
+        <div class="card-info">
+          <h3>Total Users</h3>
+          <p>{{ total_users }}</p>
+        </div>
+      </div>
+
+      <div class="card stat-card">
+        <i class="fas fa-folder-open card-icon"></i>
+        <div class="card-info">
+          <h3>Total Files</h3>
+          <p>{{ total_files }}</p>
+        </div>
+      </div>
+
+      <div class="card stat-card">
+        <i class="fas fa-ticket-alt card-icon"></i>
+        <div class="card-info">
+          <h3>Open Tickets</h3>
+          <p>{{ open_tickets }}</p>
+        </div>
+      </div>
+
+      <div class="card chart-card">
+        <h3>User Roles Overview</h3>
+        <div class="chart-placeholder">📊 Chart.js placeholder</div>
+      </div>
+
+      <div class="card chart-card">
+        <h3>File Upload Activity</h3>
+        <div class="chart-placeholder">📈 Chart placeholder</div>
+      </div>
+    </section>
+
+    <section class="quick-actions">
+      <a href="{% url 'manage_file_categories' %}" class="btn-nav">
+        📂 Manage File Categories
+      </a>
+    </section>
+
+    <!-- Manage User Roles -->
+    <div class="container">
+      <h2>👤 Manage User Roles</h2>
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Current Role</th>
+            <th>Change Role /Remove Assignment/Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                {% if user.groups.first %}
+                  {{ user.groups.first.name }}
+                {% else %}
+                  <em>No Role</em>
+                {% endif %}
+              </td>
+              <td>
+                <form method="post" action="{% url 'admin_dashboard' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="user_id" value="{{ user.id }}">
+                  <input type="hidden" name="action" value="update_role">
+                  <select name="new_role" required>
+                    <option value="">--Select--</option>
+                    <option value="Director" {% if user.groups.first.name == "Director" %}selected{% endif %}>Director</option>
+                    <option value="Manager" {% if user.groups.first.name == "Manager" %}selected{% endif %}>Manager</option>
+                    <option value="Staff" {% if user.groups.first.name == "Staff" %}selected{% endif %}>Staff</option>
+                  </select>
+                  <button type="submit" class="btn-update">Update</button>
+                </form>
+                <form method="post" action="{% url 'admin_dashboard' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="remove_assignment">
+                  <input type="hidden" name="target_type" value="role">
+                  <input type="hidden" name="user_id" value="{{ user.id }}">
+                  <button type="submit" class="btn-warning btn-sm">Remove Assignment</button>
+                </form>
+                <form method="post" action="{% url 'admin_dashboard' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="user_id" value="{{ user.id }}">
+                  <input type="hidden" name="action" value="delete_user">
+                  <button type="submit" class="btn-delete"><i class="fas fa-trash-alt"></i></button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Create New User -->
+    <section class="user-management">
+      <h3>Create New User</h3>
+      <form method="post" action="{% url 'create_user' %}" class="create-user-form">
+        {% csrf_token %}
+        <input type="text" name="first_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <select name="role">
+          <option value="">Select Role</option>
+          <option value="Director">Director</option>
+          <option value="Manager">Manager</option>
+          <option value="Staff">Staff</option>
+        </select>
+        <button type="submit" class="btn-create"><i class="fas fa-user-plus"></i> Create User</button>
+      </form>
+    </section>
+
+        <!-- Manage Customer Roles -->
+    <section class="container">
+      <h2>👤 Manage Customers, Overseers & Custodians</h2>
+
+      {% for customer in customers %}
+        <div class="card mb-4 p-3 shadow-sm">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4>{{ customer.name }}</h4>
+            <form method="post" action="{% url 'admin_dashboard' %}" class="form-inline-row">
+              {% csrf_token %}
+              <input type="hidden" name="customer_id" value="{{ customer.id }}">
+              <input type="hidden" name="action" value="assign_overseer_or_custodian">
+
+              <div class="form-inline-row">
+                <form method="post" action="{% url 'admin_dashboard' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                  <input type="hidden" name="action" value="assign_overseer_or_custodian">
+                  <select name="overseer_id" required>
+                    <option value="">-- Select Overseer --</option>
+                    {% for user in users %}
+                      <option value="{{ user.id }}" {% if customer.overseer and customer.overseer.id == user.id %}selected{% endif %}>
+                        {{ user.get_full_name }} ({{ user.username }})
+                      </option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn btn-primary btn-sm">Update Overseer</button>
+                </form>
+
+                <form method="post" action="{% url 'admin_dashboard' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="remove_assignment">
+                  <input type="hidden" name="target_type" value="overseer">
+                  <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove Assignment</button>
+                </form>
+              </div>
+
+
+            </form>
+          </div>
+
+          {% if customer.terminals %}
+            <table class="table table-bordered table-sm mt-3">
+              <thead class="table-light">
+                <tr>
+                  <th>Branch</th>
+                  <th>Custodian</th>
+                  <th>Assign / Update/Remove Assignment</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for terminal in customer.terminals %}
+                  <tr>
+                    <td>{{ terminal.branch_name }}</td>
+                    <td>
+                      {% if terminal.custodian %}
+                        {{ terminal.custodian.get_full_name }} ({{ terminal.custodian.username }})
+                      {% else %}
+                        <span class="text-danger">None Assigned</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <form method="post" action="{% url 'admin_dashboard' %}" class="form-inline-row">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="assign_custodian">
+                      <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                      <input type="hidden" name="terminal_id" value="{{ terminal.id }}">
+
+                      <form method="post" action="{% url 'admin_dashboard' %}" class="form-inline-row" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="assign_custodian">
+                        <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                        <input type="hidden" name="terminal_id" value="{{ terminal.id }}">
+                        <select name="custodian_id" required>
+                          <option value="">-- Select Custodian --</option>
+                          {% for user in users %}
+                            <option value="{{ user.id }}" {% if terminal.custodian and terminal.custodian.id == user.id %}selected{% endif %}>
+                              {{ user.get_full_name }} ({{ user.username }})
+                            </option>
+                          {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-success btn-sm">Update</button>
+                      </form>
+
+                      <form method="post" action="{% url 'admin_dashboard' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="remove_assignment">
+                        <input type="hidden" name="target_type" value="custodian">
+                        <input type="hidden" name="customer_id" value="{{ customer.id }}">
+                        <input type="hidden" name="terminal_id" value="{{ terminal.id }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove Assignment</button>
+                      </form>
+
+                    </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p class="text-muted"><em>No branches defined for this customer.</em></p>
+          {% endif %}
+        </div>
+      {% empty %}
+        <p>No customers available.</p>
+      {% endfor %}
+    </section>
+
+    <!-- User Lists -->
+    <div class="container">
+      <h2>👥 All Overseers</h2>
+      <ol>
+        {% for user in overseers %}
+          <li>{{ user.get_full_name }} ({{ user.username }})</li>
+        {% empty %}
+          <li><em>No overseers defined.</em></li>
+        {% endfor %}
+      </ol>
+
+      <h2>🗄️ All Custodians</h2>
+      <ol>
+        {% for user in custodians %}
+          <li>{{ user.get_full_name }} ({{ user.username }})</li>
+        {% empty %}
+          <li><em>No custodians defined.</em></li>
+        {% endfor %}
+      </ol>
+
+      <h2>❓ Users Without Customer Roles</h2>
+      <ol>
+        {% for user in users_without_roles %}
+          <li>{{ user.get_full_name }} ({{ user.username }})</li>
+        {% empty %}
+          <li><em>All users have roles.</em></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </main>
+</body>
+</html>

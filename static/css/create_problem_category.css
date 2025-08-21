@@ -1,0 +1,170 @@
+:root {
+  --primary: #123692;
+  --secondary: #6c757d;
+  --accent: #f7bb10;
+  --bg: #f8f9fa;
+  --card: #fff;
+  --text: #343a40;
+  --border: #dee2e6;
+}
+
+body {
+  background-color: var(--bg);
+}
+
+/* Container */
+.form-container {
+  background: var(--card);
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.form-container h2 {
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+/* Fieldsets & Legends */
+.section {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: #fafafa;
+}
+.section legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+  color: var(--secondary);
+  width: auto;
+  margin-left: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Inline group for select */
+.inline-group {
+  display: flex;
+  align-items: center;
+}
+.inline-group .form-control {
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Form controls */
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.form-control {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+/* Issues grid */
+.issues-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.issue-item {
+  display: contents; /* allow grid placement */
+}
+.btn-icon {
+  background: none;
+  border: none;
+  color: var(--secondary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.btn-icon:hover {
+  color: #c82333;
+}
+
+/* “Add Issue” button */
+#add-issue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px dashed var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.95rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#add-issue:hover {
+  background: rgba(18,54,146,0.1);
+}
+
+/* Button Group */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+}
+.btn-primary:hover {
+  background: #0f2e70;
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-cancel {
+  background: transparent;
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  text-decoration: none;
+}
+.btn-cancel:hover {
+  background: var(--secondary);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .issues-grid {
+    grid-template-columns: 1fr;
+  }
+  #add-issue {
+    width: 100%;
+    justify-content: center;
+  }
+  .btn-group {
+    flex-direction: column;
+  }
+}

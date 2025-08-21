@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/create_problem_category.css' %}">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <h2>
+    <i class="fas fa-folder{{ selected_category|yesno:'-open,' }}"></i>
+    {% if selected_category %} Update “{{ selected_category.name }}”
+    {% else %} Create Problem Category
+    {% endif %}
+  </h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <!-- ───── 1) EXISTING VS NEW ───── -->
+    <fieldset class="section">
+      <legend><i class="fas fa-list"></i> Choose Category</legend>
+      <div class="form-group inline-group">
+        <select id="existing_category" name="existing_category" class="form-control"
+                onchange="window.location.href='?existing_category='+this.value">
+          <option value="">➕ New Category</option>
+          {% for cat in categories %}
+            <option value="{{ cat.pk }}"
+              {% if selected_category and cat.pk == selected_category.pk %}selected{% endif %}>
+              {{ cat.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    </fieldset>
+
+    <!-- ───── 2) CATEGORY DETAILS ───── -->
+    <fieldset class="section">
+      <legend><i class="fas fa-cog"></i> Category Details</legend>
+      <div class="form-group">
+        {{ form.brts_unit.label_tag }}
+        {{ form.brts_unit }}
+      </div>
+      {% if not selected_category %}
+        <div class="form-group">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+      {% else %}
+        <input type="hidden" name="name" value="{{ selected_category.name }}">
+      {% endif %}
+    </fieldset>
+
+    <!-- ───── 3) ISSUE TYPES ───── -->
+    <fieldset class="section">
+      <legend><i class="fas fa-exclamation-circle"></i> Issue Types</legend>
+      {{ formset.management_form }}
+      <div class="issues-grid">
+        {% for issue_form in formset %}
+          <div class="issue-item">
+            {{ issue_form.name }}
+            {% if issue_form.instance.pk %}
+              <button type="button" class="btn-icon remove-issue">
+                <i class="fas fa-trash-alt"></i>
+                {{ issue_form.DELETE }}
+              </button>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <button type="button" id="add-issue" class="btn btn-outline">
+        <i class="fas fa-plus"></i> Add Issue
+      </button>
+    </fieldset>
+
+    <!-- ───── 4) SUBMIT ───── -->
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary">
+        {% if selected_category %} Save Changes {% else %} Save Category + Issues {% endif %}
+      </button>
+      <a href="{% url 'problem_category' %}" class="btn btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,227 @@
+.ticket-detail-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.ticket-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 800px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.ticket-card h2 {
+  font-size: 1.75em;
+  color: #123692;
+  margin-bottom: 25px;
+  text-wrap: balance;
+}
+
+.ticket-info div {
+  margin-bottom: 15px;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.ticket-info strong {
+  color: #555;
+  display: inline-block;
+  min-width: 140px;
+}
+
+.description {
+  margin-top: 5px;
+  padding-left: 10px;
+  color: #444;
+  border-left: 3px solid #1236921c;
+}
+
+/* Badge styles */
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.badge-open { background-color: #28a745; color: white; }
+.badge-in_progress { background-color: #ffc107; color: #212529; }
+.badge-resolved { background-color: #17a2b8; color: white; }
+.badge-closed { background-color: #6c757d; color: white; }
+
+.badge-low { background-color: #17a2b8; color: white; }
+.badge-medium { background-color: #ffc107; color: #212529; }
+.badge-high { background-color: #dc3545; color: white; }
+.badge-critical { background-color: #bd2130; color: white; }
+
+/* Back button */
+.btn-back {
+  display: inline-block;
+  background-color: #123692;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+  background-color: #172d69;
+}
+.btn-success {
+  background-color: #28a745;  /* Green background */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;  
+  transform: scale(1.05);  
+}
+
+.btn-success:focus {
+  outline: none; 
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.6);  
+}
+
+/* Escalation History Styling */
+
+.card.escalation-history {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.card.escalation-history .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.75rem 1.25rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card.escalation-history .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: #333;
+}
+
+.card.escalation-history .card-body {
+    padding: 1rem 1.25rem;
+}
+
+.escalation-history-item {
+    background-color: #ffffff;
+    border-left: 4px solid #123692;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.escalation-history-item strong {
+    color: #444;
+}
+
+.escalation-history-item br {
+    margin-bottom: 0.5rem;
+}
+
+.card.escalation-history p {
+    color: #777;
+    font-style: italic;
+}
+
+
+/* New: Ticket Info Layout Styling */
+.ticket-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ticket-info > div {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ticket-info > div:nth-child(even) {
+  border-left: 1px solid #e0e0e0;
+  padding-left: 1rem;
+}
+.assigned-to-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.assigned-to-wrapper strong {
+    color: #333;
+    min-width: 100px;
+}
+
+.assigned-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.assigned-name {
+    font-weight: 500;
+    color: #123692;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .ticket-info strong {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .ticket-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ticket-card h2 {
+    font-size: 1.4em;
+  }
+
+  .ticket-info {
+    font-size: 0.95em;
+  }
+
+  .btn-back {
+    width: 100%;
+    text-align: center;
+  }
+}

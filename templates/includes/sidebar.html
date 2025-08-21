@@ -1,0 +1,82 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="sidebar" id="sidebar">
+    <img src="{% static 'icons/logo.png' %}" width="200" height="150" alt="Logo">
+    <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <ul>
+        <!-- Dashboard -->
+        <li>
+            <a href="{% url 'ticketing_dashboard' %}" class="{% if request.path == '/ticketing/' %}active{% endif %}">
+                <i class="fas fa-tachometer-alt icon"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!-- Tickets -->
+        <li>
+            <a href="{% url 'tickets' %}" class="{% if request.path == '/tickets/' %}active{% endif %}">
+                <i class="fas fa-ticket-alt icon"></i>
+                <span>Tickets</span>
+            </a>
+        </li>
+
+        <!-- Ticket Statuses -->
+        <li>
+            <a href="{% url 'ticket_statuses' %}" class="{% if request.path == '/ticket-statuses/' %}active{% endif %}">
+                <i class="fas fa-info-circle icon"></i>
+                <span>Ticket Statuses</span>
+            </a>
+        </li>
+
+        <!-- Problem Category & Master Data - only visible to certain roles -->
+        {% if user_group in allowed_roles or request.user.is_superuser %}
+            <!-- Problem Category -->
+            <li>
+                <a href="{% url 'problem_category' %}" class="{% if '/problem-category/' in request.path %}active{% endif %}">
+                    <i class="fas fa-exclamation-triangle icon"></i>
+                    <span>Problem Category</span>
+                </a>
+            </li>
+
+            <!-- Master Data -->
+            <li class="has-submenu {% if '/master-data/' in request.path %}expanded{% endif %}">
+                <a href="#">
+                    <i class="fas fa-database icon"></i>
+                    <span>Master Data</span>
+                    <i class="fas fa-chevron-right toggle-icon"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{% url 'customers' %}" class="{% if '/master-data/customers/' in request.path %}active{% endif %}"><i class="fas fa-users icon"></i> Customers</a></li>
+                    <li><a href="{% url 'regions' %}" class="{% if '/master-data/regions/' in request.path %}active{% endif %}"><i class="fas fa-globe-americas icon"></i> Regions</a></li>
+                    <li><a href="{% url 'terminals' %}" class="{% if '/master-data/terminals/' in request.path %}active{% endif %}"><i class="fas fa-building icon"></i> Terminals</a></li>
+                    <li><a href="{% url 'units' %}" class="{% if '/master-data/units/' in request.path %}active{% endif %}"><i class="fas fa-cube icon"></i> Units</a></li>
+                    <li><a href="{% url 'system_users' %}" class="{% if '/master-data/system_users/' in request.path %}active{% endif %}"><i class="fas fa-user-friends icon"></i> Users</a></li>
+                    <li><a href="{% url 'zones' %}" class="{% if '/master-data/zones/' in request.path %}active{% endif %}"><i class="fas fa-map-marker-alt icon"></i> Zones</a></li>
+                </ul>
+            </li>
+        {% endif %}
+
+        <!-- Reports -->
+        <li class="has-submenu {% if '/reports/' in request.path %}expanded{% endif %}">
+            <a href="#">
+                <i class="fas fa-chart-pie icon"></i>
+                <span>Reports</span>
+                <i class="fas fa-chevron-right toggle-icon"></i>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="{% url 'reports' %}"><i class="fas fa-file-alt icon"></i> Reports</a></li>
+                {% if user_group in allowed_roles or request.user.is_superuser %}
+                <li><a href="{% url 'version_controls' %}"><i class="fas fa-code-branch icon"></i> Version Controls</a></li>
+                {% endif %}
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+<script src="{% static 'js/sidebar.js' %}"></script>

@@ -1,0 +1,41 @@
+def verify_otp_view(request):
+    user_id = request.session.get('pre_otp_user')
+    if not user_id:
+        return JsonResponse({'status': 'error', 'message': 'Session expired. Please login again.'})
+
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'User not found'})
+
+    if request.method == "POST":
+        form = OTPForm(request.POST)
+        if form.is_valid():
+            otp_input = form.cleaned_data["otp"]
+            otp_instance = EmailOTP.objects.filter(user=user).first()
+
+            if otp_instance:
+                if otp_input != otp_instance.otp:
+                    return JsonResponse({'status': 'error', 'message': 'Invalid OTP'})
+                elif otp_instance.is_expired():
+                    return JsonResponse({'status': 'error', 'message': 'Expired OTP'})
+                else:
+                    auth_login(request, user)
+                    if 'pre_otp_user' in request.session:
+                        del request.session['pre_otp_user']
+                    otp_instance.delete()  
+
+                    # Check if the user is a Manager or Custodian and redirect accordingly
+                    if user.groups.filter(name='Manager').exists() or user.groups.filter(name='Custodian').exists():
+                        print(f"Redirecting user {user.username} to ticketing dashboard.")
+                        return redirect('/ticketing-dashboard/')
+                    else:
+                        print(f"Redirecting user {user.username} to pre dashboards.")
+                        return redirect('/pre_dashboards/')
+ 
+            else:
+                return JsonResponse({'status': 'error', 'message': 'OTP not found'})
+
+        return JsonResponse({'status': 'error', 'message': 'Invalid OTP input'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

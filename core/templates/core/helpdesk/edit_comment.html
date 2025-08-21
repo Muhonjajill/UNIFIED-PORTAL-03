@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/edit_comment.css' %}">
+{% endblock %}
+
+{% block title %}Edit Comment - Ticket #{{ comment.ticket.id }}{% endblock %}
+
+{% block content %}
+<div class="edit-comment-container">
+    <h2>Edit Comment for Ticket #{{ comment.ticket.id }}</h2>
+    
+    <form method="post" class="comment-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_content">Comment Content</label>
+            {{ form.content }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'ticket_detail' comment.ticket.id %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+
+    <div class="back-link mt-4">
+        <a href="{% url 'ticket_detail' comment.ticket.id %}" class="btn btn-back">← Back to Ticket Details</a>
+    </div>
+</div>
+
+{% endblock %}

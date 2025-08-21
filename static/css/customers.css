@@ -1,0 +1,178 @@
+.page-container {
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+
+.page-container h2 {
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.upload-form {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.upload-form input[type="file"] {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.upload-form .btn {
+  background-color: #123692;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.upload-form .btn:hover {
+  background-color: #172d69;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.ticket-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ticket-table th,
+.ticket-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 0.95rem;
+}
+
+.ticket-table th {
+  background-color: #f1f1f1;
+  color: #343a40;
+}
+
+.ticket-table tr:hover {
+  background-color: #f9f9f9;
+}
+.page-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header-actions .btn {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+}
+
+.page-header-actions .btn-primary {
+  background-color: #123692;
+}
+
+.page-header-actions .btn-primary:hover {
+  background-color: #172d69;
+}
+
+.page-header-actions .btn-danger {
+  background-color: #dc3545;
+}
+
+.page-header-actions .btn-danger:hover {
+  background-color: #c82333;
+}
+.view-link {
+  color: #123692;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.view-link:hover {
+  color: #172d69;
+}
+/* Pagination Controls */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.page-links {
+  display: inline-block;
+}
+
+.page-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 5px;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.page-links a:hover {
+  background-color: #f1f1f1;
+}
+
+.current-page {
+  padding: 8px 16px;
+  font-size: 1em;
+  color: #6c757d;
+}
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+
+  .upload-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upload-form input[type="file"],
+  .upload-form .btn {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .page-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .page-header-actions .btn,
+  .upload-form input[type="file"] {
+    width: 100%;
+    text-align: center;
+  }
+
+  .ticket-table th,
+  .ticket-table td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+

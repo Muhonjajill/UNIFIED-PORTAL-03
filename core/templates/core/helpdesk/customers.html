@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Customers{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/customers.css' %}">
+<div class="page-container">
+  <h2><i class="fas fa-users"></i> Customers</h2>
+  <p>Manage customer records here.</p>
+
+  <!-- Upload Form -->
+  <div class="page-header-actions">
+    <form method="POST" enctype="multipart/form-data" class="upload-form">
+      {% csrf_token %}
+      <label for="file">Upload Customer CSV:</label>
+      <input type="file" name="file" accept=".csv" required>
+      <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+    <a href="{% url 'create_customer' %}" class="btn btn-danger">New Customer</a>
+  </div>
+
+  <!-- Table of customers -->
+  <div class="table-responsive">
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="alert alert-success">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <table class="ticket-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer Name</th>
+          <th>Actions</th> 
+        </tr>
+      </thead>
+      <tbody>
+      {% for customer in customers %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ customer.name }}</td>
+        <td>
+          <a href="{% url 'delete_customer' customer.id %}" class="view-link" onclick="return confirm('Are you sure you want to delete this customer?');">Remove</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">No customers found.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <span class="page-links">
+      {% if customers.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ customers.previous_page_number }}">Previous</a>
+      {% endif %}
+      
+      <span class="current-page">Page {{ customers.number }} of {{ customers.paginator.num_pages }}</span>
+
+      {% if customers.has_next %}
+        <a href="?page={{ customers.next_page_number }}">Next</a>
+        <a href="?page={{ customers.paginator.num_pages }}">Last</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+<script src="{% static 'js/ticketing_dashboard.js' %}"></script>
+{% endblock %}

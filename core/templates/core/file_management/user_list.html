@@ -1,0 +1,82 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block title %}Registered Users{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<h2 class="page-title">👥 Registered Users</h2>
+
+<div class="table-container">
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in page_obj %}
+      <tr>
+        <td data-label="Name">{{ user.username }}</td>
+        <td data-label="Email">{{ user.email }}</td>
+        <td data-label="Role">
+          {% with user.groups.first.name as role %}
+            <span class="badge {% if role %}{{ role|lower }}{% else %}no-role{% endif %}">
+              {% if role %}
+                {{ role }}
+              {% else %}
+                <em>No Role</em>
+              {% endif %}
+            </span>
+          {% endwith %}
+        </td>
+        <td data-label="Status">
+          <span class="badge {% if user.is_active %}active{% else %}inactive{% endif %}">
+            {{ user.is_active|yesno:"Active,Inactive" }}
+          </span>
+        </td>
+        <td data-label="Actions" class="actions">
+          <a href="{% url 'user_detail' user.id %}" class="btn view">View</a>
+          {% if perms.auth.change_user %}
+          <a href="{% url 'edit_user' user.id %}" class="btn edit">Edit</a>
+          {% endif %}
+
+          {% if perms.auth.delete_user %}
+            <form method="post" action="{% url 'delete_user' user.id %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn delete" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Pagination Links -->
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+{% endblock %}

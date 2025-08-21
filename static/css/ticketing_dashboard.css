@@ -1,0 +1,340 @@
+:root {
+  --primary-color: #2a3d66;  /* Dark blue for professionalism */
+  --secondary-color: #6a11cb;  /* A muted purple */
+  --accent-color: #4fa3f7;  /* Accent blue */
+  --background-color: #f8f9fa;  /* Light background for readability */
+  --text-color: #333333;  /* Dark text for contrast */
+  --gray-light: #e9ecef;  /* Lighter gray for backgrounds */
+  --shadow: rgba(0,0,0,0.1);  /* Soft shadows */
+  --border-radius: 12px;  /* Rounded edges for a modern look */
+  --transition: 0.3s ease; /* Global transition timing */
+
+  /* New CSS Variables for theming and consistency */
+  --card-background: #ffffff;
+  --card-text: var(--text-color);
+  --header-color: var(--primary-color);
+  --kpi-card-bg: var(--primary-color); /* Retain for KPI card for strong contrast */
+  --kpi-card-text: #fff; /* Ensure white text on KPI cards */
+  --button-background: #ff4d4d; /* Default button background */
+  --button-text: white; /* Default button text color */
+}
+
+/* Dark Mode Example (add this to your CSS for future dark mode implementation) */
+/* To activate, add a class like .dark-mode to your <body> or <html> tag */
+body.dark-mode {
+  --background-color: #1a1a2e; /* Darker background */
+  --text-color: #e0e0e0; /* Lighter text */
+  --card-background: #2c2c4d; /* Darker card background */
+  --card-text: #e0e0e0;
+  --header-color: #4fa3f7; /* Lighter header color */
+  --gray-light: #3a3a5a; /* Darker gray for backgrounds */
+  --shadow: rgba(0,0,0,0.4); /* Stronger shadow for dark mode */
+  --kpi-card-bg: #4a4a75; /* Adjust KPI background for dark mode */
+  --button-background: #6a11cb; /* Adjust button background for dark mode */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  transition: background var(--transition), color var(--transition); /* Smooth theme transitions */
+
+  /* Subtle background pattern for texture */
+  background-image: radial-gradient(circle at top left, rgba(0,0,0,0.02) 1px, transparent 1px),
+                    radial-gradient(circle at bottom right, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+.dashboard-wrapper {
+  max-width: 1600px;
+  margin: auto;
+  padding: 2rem;
+  margin-top: 50px;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--header-color); /* Use themed header color */
+  transition: color var(--transition); /* Smooth color transition for theming */
+}
+
+.dashboard-header i {
+  color: var(--accent-color);
+}
+
+/* KPI SECTION */
+.kpi-section {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  flex: 1 1 calc(25% - 1.5rem);
+  background: linear-gradient(135deg, var(--kpi-card-bg), color-mix(in srgb, var(--kpi-card-bg) 80%, black)); /* Subtle gradient for KPI card */
+  color: var(--kpi-card-text); /* Use themed KPI text color */
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px var(--shadow);
+  transition: all var(--transition), box-shadow 0.3s ease-out; /* Smooth all transitions, faster shadow */
+  border: 1px solid transparent; /* Prepare for subtle border change on hover */
+}
+
+.kpi-card .icon {
+  margin-right: 1rem;
+}
+
+.kpi-card .details h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--kpi-card-text);
+}
+
+.kpi-card .details p {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--kpi-card-text);
+}
+
+.kpi-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25); /* Stronger, more lifted shadow */
+  border-color: var(--accent-color); /* Highlight with accent color on hover */
+}
+
+/* Gradient Variations (these are for individual elements if needed, not globally applied) */
+.gradient-1 { background: linear-gradient(135deg, #4fa3f7, #2a3d66); }
+.gradient-2 { background: linear-gradient(135deg, #2a3d66, #6a11cb); }
+.gradient-3 { background: linear-gradient(135deg, #6a11cb, #4fa3f7); }
+.gradient-4 { background: linear-gradient(135deg, #2a3d66, #f7971e); }
+
+/* CHART GRID */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: var(--card-background); /* Use themed card background */
+  color: var(--card-text); /* Use themed card text color */
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 18px var(--shadow);
+  padding: 1.5rem;
+  position: relative;
+  transition: all var(--transition), box-shadow 0.3s ease-out; /* Smooth all transitions, faster shadow */
+  border: 1px solid transparent; /* Prepare for subtle border change on hover */
+}
+
+.chart-card:hover {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  transform: translateY(-5px);
+  border-color: var(--accent-color); /* Highlight with accent color on hover */
+}
+
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--header-color); /* Use themed header color */
+  transition: color var(--transition);
+}
+
+.menu-btn {
+  cursor: pointer;
+  color: var(--text-color); /* Use themed text color for icons */
+  transition: color var(--transition), transform 0.2s ease; /* Smooth color and transform */
+}
+
+.menu-btn:hover {
+  color: var(--accent-color);
+  transform: scale(1.1); /* Subtle zoom on menu icons */
+}
+
+/* User profile dropdown active state */
+.user-profile.active {
+    box-shadow: 0 0 0 3px rgba(79, 163, 247, 0.3); /* Accent color glow */
+    border-radius: var(--border-radius);
+}
+
+/* Improve search input focus state */
+#navbarSearchInput:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(79, 163, 247, 0.2);
+    outline: none; /* Remove default outline */
+}
+
+/* DISTRIBUTION FLEX */
+.distribution-flex {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.distribution-flex > div {
+  flex: 1 1 45%;
+}
+
+/* CANVAS STYLING */
+canvas {
+  width: 100% !important;
+  height: 260px !important;
+}
+
+canvas.tall-chart {
+  height: 400px !important;
+}
+
+.chart-card.full-width canvas {
+  margin-top: 1rem;
+}
+
+canvas#priorityChart,
+canvas#statusChart {
+  background: var(--gray-light); /* Use themed gray for canvas background */
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--card-background); /* Themed background */
+  color: var(--card-text); /* Themed text */
+  padding: 20px;
+  border-radius: var(--border-radius);
+  width: 80%;
+  max-width: 90%; /* Increased max width for better content display */
+  max-height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Stronger shadow for pop-up */
+  position: relative;
+  text-align: center;
+  border: 1px solid var(--gray-light); /* Subtle border */
+}
+
+.modal-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--header-color); /* Themed header color */
+  margin-bottom: 1rem;
+  transition: color var(--transition);
+}
+
+.modal-content pre {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--gray-light); /* Themed code block background */
+  color: var(--text-color); /* Themed code text */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, var(--gray-light) 80%, black); /* Subtle border for pre */
+}
+
+button {
+  position: absolute; /* Kept absolute for the close button, consider making general buttons static */
+  top: 10px;
+  right: 10px;
+  background-color: var(--button-background); /* Use themed button background */
+  color: var(--button-text); /* Use themed button text color */
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: var(--border-radius); /* Apply global border-radius */
+  cursor: pointer;
+  transition: all var(--transition); /* Smooth all transitions */
+}
+
+button:hover {
+  background-color: color-mix(in srgb, var(--button-background) 90%, black); /* Slightly darker on hover */
+  filter: brightness(1.1); /* Brighter on hover */
+  transform: translateY(-2px) scale(1.02); /* Slight lift and scale */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15); /* More pronounced shadow */
+}
+
+/* Ensure consistent font application and transition across relevant elements */
+body, h1, h2, h3, p, span, div, button, input, canvas {
+    font-family: 'Roboto', sans-serif;
+    transition: color var(--transition); /* Apply transition to text color for themes */
+}
+
+/* RESPONSIVE Adjustments */
+@media (max-width: 1200px) {
+  .dashboard-wrapper {
+    padding: 1.5rem; /* Reduce padding on slightly smaller screens */
+  }
+  .kpi-card {
+    flex: 1 1 calc(33.33% - 1.5rem); /* Adjust KPI card layout for 3 columns */
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    padding: 1rem; /* Further reduce padding on small screens */
+    margin-top: 20px; /* Reduce top margin */
+  }
+  .dashboard-header h1 {
+    font-size: 2rem; /* Smaller header font */
+  }
+  .kpi-card {
+    flex: 1 1 calc(50% - 1.5rem); /* Adjust KPI card layout for 2 columns */
+    padding: 1rem; /* Smaller padding */
+  }
+  .kpi-card .details p {
+    font-size: 1.8rem; /* Smaller KPI value font */
+  }
+  .charts-grid {
+    grid-template-columns: 1fr; /* Single column layout for charts */
+    gap: 1rem; /* Smaller gap */
+  }
+  .chart-card {
+    padding: 1rem; /* Smaller chart card padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .kpi-card {
+    flex: 1 1 100%; /* Single column KPI cards */
+  }
+}

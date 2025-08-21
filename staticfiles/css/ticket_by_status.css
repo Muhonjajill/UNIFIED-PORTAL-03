@@ -1,0 +1,54 @@
+  /* Custom Styles */
+  .container {
+    max-width: 1200px;
+    margin-top: 30px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .table thead {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .table thead th {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .table tbody tr {
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .table td {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .table td, .table th {
+    border: 1px solid #ddd;
+  }
+
+  .table td.no-record {
+    color: #888;
+    text-align: center;
+  }

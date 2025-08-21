@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- OTP Modal -->
+  <div id="otpModal" class="otp-modal" style="display: none;">
+    <div class="otp-modal-content">
+      <h2>🔐 Enter OTP</h2>
+      <p>Please enter the 6-digit code sent to your email.</p>
+      <form id="otpForm">
+        {% csrf_token %}
+        <input type="text" name="otp" placeholder="6-digit OTP" maxlength="6" required>
+        <button type="submit" class="btn-verify">Verify OTP</button>
+        <p id="otpMessage" class="otp-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="loader" style="display: none;" class="loader-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <div class="login-wrapper">
+    <div class="left-panel">
+      <!--<img src="{% static 'icons/favicon.ico' %}" alt="Logo" class="login-logo">-->
+      
+      <div class="brand-content">
+        <img src="{% static 'icons/favicon.ico' %}" alt="Company Logo">
+        <h1>Welcome to Blue River Technology Solutions</h1>
+        <p>Organize and track your tickets easily.</p>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Sign in</h2>
+      <p>Welcome back</p>
+
+      <form method="post" id="loginForm" class="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+
+      <div class="login-links">
+        <a href="{% url 'password_reset' %}" class="link">Forgot password?</a> |
+        <a href="{% url 'register' %}" class="link">Create new account</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginUrl = "{% url 'login' %}";
+    const verifyOtpUrl = "{% url 'verify_otp' %}";
+  </script>
+  <script src="{% static 'js/login.js' %}"></script>
+
+</body>
+</html>

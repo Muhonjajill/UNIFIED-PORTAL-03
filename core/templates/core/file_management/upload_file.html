@@ -1,0 +1,26 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block title %}Upload File{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/upload_file.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if perms.core.add_file %}
+<div class="upload-container">
+  <h2>📁 Upload a New File</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Upload File">
+  </form>
+</div>
+{% else %}
+  <div class="alert alert-warning">
+    🚫 You do not have permission to upload files.
+  </div>
+{% endif %}
+{% endblock %}

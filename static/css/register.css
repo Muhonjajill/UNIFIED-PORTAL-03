@@ -1,0 +1,248 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f6f9;
+}
+
+/* Layout wrapper */
+.login-wrapper {
+  display: flex;
+  width: 90%;
+  max-width: 950px;
+  height: 600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Left branding panel */
+.login-wrapper .left-panel {
+  /*background: linear-gradient(135deg,
+  /*#ffffff 0%,      /* clean white start */
+  /*#fbe4e4 30%,     /* gentle red blush */
+  /*#e8433f 45%,     /* rich corporate red */
+  /*#a5b8e1 70%,     /* soft steel blue bridge */
+  /*#123692 100%      bold deep blue anchor */
+/*);*/
+
+background: linear-gradient(to bottom right, #ffffff, #e74c3c, #3498db); 
+
+
+  color: #f8f1f1;
+  width: 50%;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.left-panel img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.left-panel h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.left-panel p {
+  font-size: 16px;
+  opacity: 0.85;
+}
+
+/* Right login form card */
+.login-wrapper .right-panel {
+  background: white;
+  width: 50%;
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-panel h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #0f1f47;
+}
+
+.right-panel p {
+  color: #161616;
+  margin-bottom: 30px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input[type="text"],
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #1a1f3d;
+  outline: none;
+}
+
+.btn-login {
+  background: #123692;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+  background: #1a1f3d;
+  opacity: 0.9;
+}
+
+.login-links {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.login-links .link {
+  color: #0f1f47;
+  text-decoration: none;
+  margin: 0 4px;
+}
+
+.login-links .link:hover {
+  text-decoration: underline;
+}
+
+/* ✅ FIXED: OTP Modal Overlay */
+.otp-modal {
+  display: none; /* initially hidden */
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal Box Styling */
+.otp-modal-content {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #080808;
+}
+
+.otp-modal-content h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.otp-modal-content p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.otp-modal-content input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.btn-verify {
+  background-color: #123692;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-verify:hover {
+  background-color: #172d69;
+}
+
+.otp-message {
+  font-size: 13px;
+  color: crimson;
+  margin-top: 10px;
+}
+
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .login-wrapper .left-panel,
+  .login-wrapper .right-panel {
+    width: 100%;
+    padding: 30px;
+  }
+}

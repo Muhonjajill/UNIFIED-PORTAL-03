@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/permission_denied.css' %}">
+{% endblock %}
+
+{% block title %}Permission Denied{% endblock %}
+
+{% block content %}
+<div class="permission-denied-container">
+  <div class="permission-denied-card">
+    <h2>🚫 Permission Denied</h2>
+    <p>You do not have permission to view this ticket.</p>
+    <a href="{% url 'ticketing_dashboard' %}" class="btn btn-primary">Back to Tickets</a>
+  </div>
+</div>
+{% endblock %}

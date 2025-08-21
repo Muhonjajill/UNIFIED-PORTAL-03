@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Dashboards</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pre_dashboards.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <header class="animate__animated animate__fadeInDown">
+        <img src="{% static 'icons/logo.png' %}" width="180" height="120" class="logo-animate">
+        <h1>Welcome, <span class="highlight">{{ user.get_full_name|default:user.username }}</span></h1>
+        <div class="sub-header animate__animated animate__fadeIn animate__delay-1s">
+          <span class="badge">Secure • Transparent • Efficient</span>
+        </div>
+    </header>
+    {% if user.is_superuser %}
+        <a href="{% url 'admin_dashboard' %}" class="admin-btn animate__animated animate__zoomInDown">Go to Admin Dashboard</a>
+    {% endif %}
+    <main class="cards-container">
+        {% if not is_overseer_or_custodian %}
+        <div class="card card-effect animate__animated animate__fadeInUp" id="fileManagementCard" tabindex="0">
+            <span class="card-icon pulse">&#128447;&#65039;</span>
+            <h2 class="card-title gradient-text">File Management System</h2>
+            <p class="card-description">Upload, access, categorize, and share files.</p>
+            <div class="card-footer">Fast and secure cloud storage</div>
+        </div>
+        {% endif %}
+        
+        <div class="card card-effect animate__animated animate__fadeInUp animate__delay-1s" id="ticketingSystemCard" tabindex="0">
+            <span class="card-icon wobble">&#127915;</span>
+            <h2 class="card-title gradient-text">Ticketing System</h2>
+            <p class="card-description">Raise issues, track support tickets, communicate with support.</p>
+            <div class="card-footer">24/7 support & real-time tracking</div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ticketingCard = document.getElementById('ticketingSystemCard');
+            const fileManagementCard = document.getElementById('fileManagementCard');
+
+            const ticketingURL = "{% url 'ticketing_dashboard' %}";
+            const filemanagementURL = "{% url 'file_management_dashboard' %}";
+
+            if (ticketingCard) {
+                ticketingCard.addEventListener('click', function () {
+                    window.location.href = ticketingURL;
+                });
+            }
+
+            if (fileManagementCard) {
+                fileManagementCard.addEventListener('click', function () {
+                    window.location.href = filemanagementURL;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

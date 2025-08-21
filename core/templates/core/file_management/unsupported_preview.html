@@ -1,0 +1,16 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block title %}Preview Not Available{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/unsupported_preview.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+  <h3>⚠️ Preview Not Available</h3>
+  <p>This file type cannot be previewed in the browser.</p>
+  <a href="{{ file.file.url }}" download class="btn">⬇ Download File</a>
+</div>
+{% endblock %}

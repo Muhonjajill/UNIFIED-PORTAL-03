@@ -1,0 +1,334 @@
+/* General enhancements for layout and typography */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #e9ecef;
+}
+
+.page-container {
+  max-width: 1200px; /* Increased max-width for better use of space */
+  margin: 50px auto; /* Centered with auto margins */
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.8s ease-out;
+}
+
+.page-container h2 {
+  font-size: 2em;
+  color: #343a40;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #123692;
+  padding-bottom: 10px;
+  animation: slideInLeft 0.8s ease-out;
+  display: flex;
+  align-items: center;
+}
+
+.page-container h2 i {
+  margin-right: 10px;
+  color: #123692;
+}
+
+.page-container p {
+  color: #6c757d;
+  font-size: 1.1em;
+  margin-bottom: 25px;
+}
+
+/* Form structure and styling */
+.report-filters {
+  background-color: #f8f9fa;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 15px;
+}
+
+.form-header h3 {
+  font-size: 1.5em;
+  color: #343a40;
+  margin: 0;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Flexible columns */
+  gap: 20px;
+  align-items: flex-end; /* Align items to the bottom */
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #495057;
+  font-size: 0.95em;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #495057;
+  background-color: #fff;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Button styling */
+.button-row {
+  display: flex;
+  gap: 10px; /* Reduced gap for a tighter look */
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn i {
+  margin-right: 8px;
+}
+
+.btn-primary {
+  background-color: #123692;
+  color: white;
+  border: 1px solid #123692;
+}
+
+.btn-primary:hover {
+  background-color: #172d69;
+  border-color: #004085;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: 1px solid #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+  border: 1px solid #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+  border-color: #117a8b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(23, 162, 184, 0.2);
+}
+
+.btn-link {
+  color: #123692;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.btn-link:hover {
+  color: #172d69;
+  text-decoration: underline;
+}
+
+.filter-action {
+  grid-column: span full; /* Spans across all columns for better alignment */
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Date picker specific styles */
+.date-picker {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Table styling */
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: separate; /* Use separate to allow border-radius on cells (though not directly applied here) */
+  border-spacing: 0; /* Remove space between cells */
+  font-size: 0.95em;
+}
+
+.report-table thead {
+  background-color: #343a40;
+  color: white;
+}
+
+.report-table th,
+.report-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e2e6ea;
+}
+
+.report-table th {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.report-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.report-table tbody tr:hover {
+  background-color: #e9f5ff;
+  box-shadow: inset 3px 0 0 #123692; /* Subtle highlight on hover */
+}
+
+/* Animation improvements */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+/* Pagination container styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+  font-size: 1em;
+}
+
+/* Pagination links container */
+.page-number {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Individual page links */
+.page-number a {
+  padding: 8px 16px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #123692;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.page-number a:hover {
+  background-color: #172d69;
+  color: white;
+}
+
+.page-number a:active,
+.page-number a:focus {
+  background-color: #172d69;
+  color: white;
+  border-color: #172d69;
+}
+
+/* Current page display styling */
+.page-number .current {
+  padding: 8px 16px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #6c757d;
+  pointer-events: none;
+}
+
+/* Pagination text styling */
+.page-number .current,
+.page-number a {
+  font-size: 0.95em;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .filter-grid {
+    grid-template-columns: 1fr; 
+  }
+
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-row {
+    margin-top: 15px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .btn {
+    width: 100%; /* Full width buttons on small screens */
+  }
+
+  .filter-action {
+    justify-content: stretch;
+  }
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .page-number a {
+    font-size: 0.9em;
+    padding: 6px 12px;
+  }
+
+  .page-number .current {
+    font-size: 0.9em;
+    padding: 6px 12px;
+  }
+}

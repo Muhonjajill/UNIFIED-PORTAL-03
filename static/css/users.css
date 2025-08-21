@@ -1,0 +1,194 @@
+/* General Page Layout */
+.page-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 2rem auto;
+  max-width: 1000px;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.user-table th,
+.user-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.user-table thead {
+  background-color: #123692;
+  color: white;
+}
+
+.user-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Badge Styling */
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.actions .btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.actions .btn.view {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.actions .btn.edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.actions .btn.delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.actions .btn:hover {
+  opacity: 0.9;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  padding: 8px 16px;
+  margin: 0 4px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pagination .current {
+  padding: 8px 16px;
+  font-weight: bold;
+  background-color: #123692;
+  color: white;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #f1f1f1;
+}
+.badge.director {
+  background-color: #123692; 
+  color: white;
+}
+
+.badge.manager {
+  background-color: #28a745; 
+  color: white;
+}
+
+.badge.staff {
+  background-color: #ffc107; 
+  color: white;
+}
+
+.badge.no-role {
+  background-color: #ccc; 
+  color: #333;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .user-table, .user-table thead, .user-table tbody, .user-table th, .user-table td, .user-table tr {
+    display: block;
+  }
+
+  .user-table thead {
+    display: none;
+  }
+
+  .user-table tr {
+    background-color: white;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .user-table td {
+    position: relative;
+    padding-left: 50%;
+    font-size: 0.9rem;
+    border-bottom: none;
+  }
+
+  .user-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-weight: bold;
+    color: #555;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,21 @@
+{% extends 'files_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/editDetail.css' %}">
+{% endblock %}
+
+{% block title %}User Detail{% endblock %}
+{% block content %}
+<div class="container">
+  <h2>User Detail: {{ user.username }}</h2>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Status:</strong> {{ user.is_active|yesno:"Active,Inactive" }}</p>
+  <p><strong>Role:</strong> {{ user.is_superuser|yesno:"Admin,Operator" }}</p>
+
+  <div class="btn-group">
+    <a href="{% url 'edit_user' user.id %}" class="btn edit">Edit</a>
+    <a href="{% url 'user_list' %}" class="btn cancel">Back to List</a>
+  </div>
+</div>
+{% endblock %}

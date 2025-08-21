@@ -1,0 +1,238 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f6f9; /* Lighter background */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Tickets Container */
+.tickets-container {
+    background-color: #ffffff;
+    padding: 2.5rem; /* Increased padding */
+    border-radius: 12px; /* Softer corners */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* More pronounced, softer shadow */
+    margin: 3rem auto; /* More vertical margin */
+    max-width: 900px; /* Slightly narrower for focus */
+    border: 1px solid #e0e6ed; /* Subtle border */
+}
+
+/* Section Header */
+.section-header {
+    margin-bottom: 2rem; /* More space */
+    text-align: center; /* Center align header */
+}
+
+.section-header h2 {
+    font-size: 2.2rem; /* Larger, more impactful title */
+    color: #2c3e50; /* Darker, more professional blue-grey */
+    margin-bottom: 0.8rem; /* Space between title and subtitle */
+    font-weight: 700; /* Bolder */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+.section-header .subtitle {
+    font-size: 1.1rem;
+    color: #607d8b; /* Softer grey */
+    margin-bottom: 1rem;
+}
+
+.section-header .access-info {
+    font-size: 0.95rem;
+    color: #7f8c8d; /* Even softer grey */
+    font-style: italic;
+    border-top: 1px solid #f0f2f5; /* Separator line */
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Table Styles */
+.ticket-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e0e6ed; /* Border around the wrapper for a cleaner look */
+    border-radius: 8px; /* Match container border-radius */
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: separate; /* Use separate to allow border-radius on cells */
+    border-spacing: 0; /* Remove default spacing */
+    margin-top: 0; /* Remove default margin as wrapper has border */
+    min-width: 650px; /* Slightly wider min-width */
+}
+
+.ticket-table thead {
+    background-color: #f8fafd; /* Very light blue-grey for header */
+}
+
+.ticket-table th,
+.ticket-table td {
+    text-align: left;
+    padding: 15px 20px; /* Increased padding */
+    border-bottom: 1px solid #f0f2f5; /* Lighter border for rows */
+    font-size: 1rem; /* Slightly larger font */
+    vertical-align: middle; /* Align content vertically */
+}
+
+.ticket-table th {
+    font-weight: 600; /* Same as before */
+    color: #52667b; /* Darker, cooler grey */
+    text-transform: uppercase; /* Uppercase for headers */
+    letter-spacing: 0.05em; /* Spacing for readability */
+}
+
+/* First and last child for rounded corners in table */
+.ticket-table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.ticket-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+.ticket-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.ticket-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+
+.ticket-table tbody tr:hover {
+    background-color: #f6faff; /* Lighter hover effect */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Badges */
+.badge {
+    display: inline-flex; /* Use flex for vertical alignment */
+    align-items: center;
+    justify-content: center;
+    padding: 0.4em 0.8em; /* Slightly more padding */
+    font-size: 0.8rem; /* Slightly larger font */
+    font-weight: 700; /* Bolder */
+    color: #fff;
+    border-radius: 0.35rem; /* Softer rounded corners */
+    text-transform: uppercase;
+    min-width: 90px; /* Ensure badges have consistent width */
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Subtle shadow for badges */
+    transition: all 0.2s ease-in-out; /* Smooth transitions for hover */
+}
+
+.badge-open {
+    background-color: #2ecc71; /* Brighter green */
+}
+.badge-in-progress { /* Renamed from badge-pending for consistency */
+    background-color: #f39c12; /* Deeper orange */
+    color: #fff; /* Ensure text is white */
+}
+.badge-resolved {
+    background-color: #3498db; /* Deeper blue */
+}
+.badge-closed {
+    background-color: #95a5a6; /* Softer grey */
+}
+.badge-pending { /* New status if you add it */
+    background-color: #e67e22; /* More distinct orange */
+}
+/* Ensure other badges from your original CSS remain or are updated */
+.badge-high { background-color: #e74c3c; } /* Red */
+.badge-medium { background-color: #f1c40f; color: #333;} /* Yellow */
+.badge-low { background-color: #1abc9c; } /* Turquoise */
+
+
+/* Status Links (new) */
+.status-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from parent */
+    display: inline-block; /* Ensure link takes up space */
+}
+
+.status-link:hover .badge {
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15); /* Stronger shadow on hover */
+}
+
+/* Visual Cue Color Boxes (new) */
+.color-box {
+    display: inline-block;
+    width: 25px; /* Size of the color box */
+    height: 25px;
+    border-radius: 50%; /* Make it round */
+    border: 1px solid rgba(0,0,0,0.1); /* Subtle border */
+    vertical-align: middle;
+}
+
+.bg-open { background-color: #2ecc71; }
+.bg-in-progress { background-color: #f39c12; }
+.bg-resolved { background-color: #3498db; }
+.bg-closed { background-color: #95a5a6; }
+.bg-pending { background-color: #e67e22; }
+
+.text-center {
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tickets-container {
+        padding: 1.5rem;
+        margin: 2rem auto;
+    }
+    .section-header h2 {
+        font-size: 1.8rem;
+        flex-direction: column; /* Stack icon and text */
+        gap: 5px;
+    }
+    .section-header .subtitle,
+    .section-header .access-info {
+        font-size: 0.9rem;
+    }
+    .ticket-table th,
+    .ticket-table td {
+        padding: 12px 15px; /* Adjust padding for smaller screens */
+        font-size: 0.9rem;
+    }
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.3em 0.6em;
+        min-width: 70px;
+    }
+    .color-box {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tickets-container {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+    .section-header .subtitle,
+    .section-header .access-info {
+        font-size: 0.85rem;
+    }
+    .ticket-table-wrapper {
+        border-radius: 4px;
+    }
+    .ticket-table th,
+    .ticket-table td {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
+    .badge {
+        min-width: 60px;
+        padding: 0.25em 0.5em;
+        font-size: 0.65rem;
+    }
+    .color-box {
+        width: 18px;
+        height: 18px;
+    }
+}

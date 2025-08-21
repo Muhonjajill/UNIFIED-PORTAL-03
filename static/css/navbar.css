@@ -1,0 +1,205 @@
+/* Base Layout */
+.top-navbar {
+  height: 60px;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 250px;
+  right: 0;
+  z-index: 1050;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for depth */
+  transition: box-shadow 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+/* Logo */
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem; /* Slightly larger for better visibility */
+  color: #123692;
+  letter-spacing: 1px; /* Add a little spacing to the letters */
+  flex-shrink: 0;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.logo:hover {
+  color: #172d69; /* Darken on hover */
+}
+
+/* Hamburger for small screens */
+.hamburger {
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+  color: #343a40;
+}
+
+/* Nav items group */
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Increased spacing for better readability */
+}
+
+/* Search bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f1f3f5;
+  border-radius: 25px; /* More rounded corners for a sleek look */
+  padding: 0.4rem 1.2rem;
+  max-width: 300px;
+  transition: width 0.3s ease; /* Smooth transition on hover */
+}
+
+.search-bar:hover {
+  width: 320px; /* Expand on hover for a more interactive feel */
+}
+
+.search-bar i {
+  color: #6c757d;
+  font-size: 1.2rem; /* Larger icon for better clarity */
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 0.5rem;
+  width: 100%;
+  font-size: 1rem;
+  color: #495057;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #123692; /* Add a blue border when focused */
+}
+
+/* User profile dropdown */
+.user-profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-trigger {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem; /* Increased space between image and name */
+  font-size: 1rem;
+  color: #343a40;
+  transition: color 0.3s ease;
+}
+
+.profile-trigger:hover {
+  color: #172d69; /* Change color on hover */
+}
+
+.profile-trigger img {
+  width: 36px; /* Slightly larger for better visibility */
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: inline-block;
+  transition: transform 0.3s ease; /* Subtle hover animation */
+}
+
+.profile-trigger img:hover {
+  transform: scale(1.05); /* Slightly grow the image on hover */
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 120%;
+  background-color: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Stronger shadow for emphasis */
+  border-radius: 8px;
+  min-width: 180px;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+.user-profile.active .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a,
+.dropdown-menu .dropdown-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #343a40;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu .dropdown-link:hover {
+  background-color: #f1f3f5;
+  color: #172d69;
+}
+
+/* Logout button styles */
+.dropdown-link.logout-btn {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-link.logout-btn:hover {
+  background-color: #f8f9fa;
+  color: #dc3545; /* Red for logout for visual emphasis */
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .top-navbar {
+    left: 0;
+  }
+
+  .nav-items {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fff;
+    width: 100%;
+    padding: 1rem;
+    display: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-items.active {
+    display: flex;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+}

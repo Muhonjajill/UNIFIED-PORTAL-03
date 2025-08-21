@@ -1,0 +1,65 @@
+/* Error Page Styling */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.error-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.error-card h2 {
+    font-size: 2em;
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.error-card p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.error-card .btn {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.error-card .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .error-container {
+        padding: 15px;
+    }
+
+    .error-card {
+        padding: 30px;
+        width: 90%;
+    }
+
+    .error-card h2 {
+        font-size: 1.5em;
+    }
+
+    .error-card p {
+        font-size: 1em;
+    }
+}

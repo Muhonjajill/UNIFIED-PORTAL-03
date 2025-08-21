@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .email-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px auto;
+            max-width: 650px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #007bff;
+        }
+        h2 {
+            color: #007bff;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .ticket-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+        }
+        .ticket-info div {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        .ticket-info div span {
+            font-weight: 600;
+            color: #007bff;
+        }
+        .cta-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 30px;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <title>Ticket Escalated</title>
+</head>
+<body>
+    <div class="email-container">
+        <h2>Ticket Escalation Notification</h2>
+        <p>Dear Team,</p>
+        <p>We would like to inform you that <strong>Ticket #{{ ticket.id }}</strong> has been escalated to the next level. Please find the details below:</p>
+
+        <div class="ticket-info">
+            <div><span>Ticket Title:</span> {{ ticket.title }}</div>
+            <div><span>Escalated By:</span> {{ ticket.escalated_by }}</div>
+            <div><span>Escalation Level:</span> {{ ticket.current_escalation_level }}</div>
+            <div><span>Reason for Escalation:</span> {{ note }}</div>
+        </div>
+
+        <p><strong>The ticket has been escalated to the next level: {{ next_level }}</strong></p>
+
+        <a href="http://127.0.0.1:8000/tickets/{{ ticket.id }}" class="cta-button">View Ticket</a>
+
+        <div class="footer">
+            <p>&copy; 2025 Blue River Technology Solutions. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

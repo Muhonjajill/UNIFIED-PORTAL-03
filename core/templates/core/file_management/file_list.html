@@ -1,0 +1,111 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block title %}File Management{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/file_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="page-title">📂 File Management</h2>
+
+  <!-- Category Buttons -->
+  <div class="category-nav">
+    <a href="{% url 'upload_file' %}" class="upload-button">➕ Upload New File</a>
+    <a href="{% url 'file_list' %}" class="{% if not active_category %}active{% endif %}">All</a>
+    {% for category in categories %}
+      <a href="{% url 'file_list_by_category' category.name %}" class="{% if category.name == active_category %}active{% endif %}">{{ category.name }}</a>
+    {% endfor %}
+  </div>
+
+  <h3 class="section-subtitle">{% if active_category %}{{ active_category }}{% else %}All Files{% endif %}</h3>
+
+  <div class="file-grid-header animate-fadein">
+    <span>NAME</span>
+    <span>SIZE</span>
+    <span>CLASSIFICATION</span>
+    <span>PREVIEW</span>
+    <span>DOWNLOAD</span>
+    <span class="delete-header">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style="vertical-align:-3px;">
+        <path d="M7 9V15M10 9V15M13 9V15M4 6H16M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2C10.5304 2 11.0391 2.21071 11.4142 2.58579C11.7893 2.96086 12 3.46957 12 4V6M19 6V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H3C2.46957 20 1.96086 19.7893 1.58579 19.4142C1.21071 19.0391 1 18.5304 1 18V6H19Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      DELETE
+    </span>
+  </div>
+
+  <div class="file-grid animate-fadein">
+    {% for file in files %}
+      <div class="file-row">
+        <div class="file-name">
+          {% if ".pdf" in file.file.name|lower %}
+            <img src="{% static 'icons/pdf.png' %}" alt="PDF Icon" />
+          {% elif ".docx" in file.file.name|lower %}
+            <img src="{% static 'icons/docx.png' %}" alt="DOCX Icon" />
+          {% elif ".jpg" in file.file.name|lower or ".png" in file.file.name|lower %}
+            <img src="{{ file.file.url }}" alt="Image" />
+          {% elif ".xlsx" in file.file.name|lower %}
+            <img src="{% static 'icons/xlsx.png' %}" alt="Excel Icon" />
+          {% elif ".txt" in file.file.name|lower %}
+            <img src="{% static 'icons/text.png' %}" alt="Text Icon" />
+          {% elif ".csv" in file.file.name|lower %}
+            <img src="{% static 'icons/csv.png' %}" alt="CSV Icon" />
+          {% elif ".xml" in file.file.name|lower %}
+            <img src="{% static 'icons/xml.png' %}" alt="XML Icon" />
+          {% elif ".ppt" in file.file.name|lower %}
+            <img src="{% static 'icons/ppt.png' %}" alt="PPT Icon" />
+          {% else %}
+            <img src="{% static 'icons/file.png' %}" alt="File Icon" />
+          {% endif %}
+          <div class="file-title-group">
+            <span class="file-title">{{ file.title }}</span>
+            <small class="file-description">{{ file.description|truncatechars:60 }}</small>
+          </div>
+        </div>
+        <div>{{ file.file.size|filesizeformat }}</div>
+        <div><span class="tag {% if file.access_level == 'confidential' %}private{% else %}{{ file.access_level }}{% endif %}">{{ file.access_level|title }}</span></div>
+        <div>
+          <a href="{% url 'preview_file' file.id %}" class="btn preview-link" target="_blank">Preview</a>
+        </div>
+        <div>
+          <a href="{{ file.file.url }}" class="btn download-link" download>Download</a>
+        </div>
+        {% if file.uploaded_by == request.user or request.user.is_superuser%}
+        <div>
+          <form method="post" action="{% url 'delete_file' file.id %}" onsubmit="return confirm('Are you sure you want to delete this file?');">
+            {% csrf_token %}
+            <button type="submit" class="btn delete-link">Delete</button>
+          </form>
+        </div>
+        {% else %}
+        <div>
+          <span style="color: #999; font-size: 0.8rem;">Not allowed</span>
+        </div>
+        {% endif %}
+      </div>
+    {% empty %}
+      <div class="file-row empty">No files available.</div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if files.has_previous %}
+      <a href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">&laquo; first</a>
+      <a href="?page={{ files.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ files.number }} of {{ files.paginator.num_pages }}.
+    </span>
+
+    {% if files.has_next %}
+      <a href="?page={{ files.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">next</a>
+      <a href="?page={{ files.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+.page-container {
+  background: #ffffff;
+  margin: 1rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 1000px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.page-container h2 {
+  color: #007bff;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.page-container p {
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .page-container h2 {
+    font-size: 1.4rem;
+  }
+
+  .page-container p {
+    font-size: 0.95rem;
+  }
+}

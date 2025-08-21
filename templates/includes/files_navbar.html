@@ -1,0 +1,37 @@
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/files_navbar.css' %}">
+
+<div class="top-navbar">
+  <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+
+  <div class="logo">Blue River Technology Solutions</div>
+
+  <div class="search-bar">
+    <i class="fas fa-search"></i>
+    <input type="text"  id="navbarSearchInput" placeholder="Search for files, categories, or users...">
+  </div>
+
+  <div class="user-profile" id="userProfile">
+    <div class="profile-dropdown">
+      <img src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}https://placehold.co/40x40{% endif %}" alt="User Avatar">
+      <span>{{ user.get_full_name|default:user.username }}</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="dropdown-content">
+      <a href="{% url 'profile_view' %}">👤 Profile</a>
+      <a href="{% url 'settings' %}">⚙️ Settings</a>
+      <form id="logout-form" method="post" action="{% url 'logout' %}" style="margin: 0;">
+        {% csrf_token %}
+        <button type="submit" class="dropdown-link logout-btn">🚪 Logout</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const profileViewUrl = "{% url 'profile_view' %}";
+</script>
+
+<script src="{% static 'js/files_navbar.js' %}"></script>

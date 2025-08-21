@@ -1,0 +1,51 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="results-container">
+  <h2 class="results-title">🔍 Search Results for "<span class="query-text">{{ query }}</span>"</h2>
+
+  {% if files %}
+    <div class="results-section">
+      <h3 class="section-title">📁 Files</h3>
+      <ul class="results-list">
+        {% for file in files %}
+          <li class="result-item">{{ file.title }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if categories %}
+    <div class="results-section">
+      <h3 class="section-title">🗂 Categories</h3>
+      <ul class="results-list">
+        {% for cat in categories %}
+          <li class="result-item">{{ cat.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if users %}
+    <div class="results-section">
+      <h3 class="section-title">👤 Users</h3>
+      <ul class="results-list">
+        {% for user in users %}
+          <li class="result-item">{{ user.username }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if not files and not categories and not users %}
+    <p class="no-results">No results found for "{{ query }}". Try another search.</p>
+  {% endif %}
+</div>
+{% endblock %}

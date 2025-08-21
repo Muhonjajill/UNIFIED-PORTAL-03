@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/terminals.css' %}">
+{% endblock %}
+
+{% block title %}Terminals{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h2><i class="fas fa-building"></i> Terminals</h2>
+    <p>Manage terminal information here.</p>
+
+    <!-- Create Terminal Button -->
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTerminalModal">
+        <i class="fas fa-plus-circle"></i> Create Terminal
+    </button>
+
+    <!-- Upload CSV Form -->
+    <form method="POST" enctype="multipart/form-data" action="{% url 'terminals' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="upload_file">Upload Terminals CSV</label>
+            <input type="file" name="upload_file" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Upload CSV</button>
+    </form>
+
+    <!-- Terminal Table Section -->
+    
+
+    <div class="table-responsive">
+        <form method="get" action="" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search terminals..." value="{{ request.GET.q }}">
+                <button class="btn btn-outline-primary" type="submit">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </form>
+        <table class="terminal-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Branch</th>
+                    <th>CDM Name</th>
+                    <th>Serial Number</th>
+                    <th>Region</th>
+                    <th>Model</th>
+                    <th>Zone</th>
+                    <th>Actions</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for terminal in terminals %}
+                <tr class="clickable-row" data-bs-toggle="modal" data-bs-target="#ticketModal{{ terminal.id }}" data-terminal-id="{{ terminal.id }}">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ terminal.customer.name }}</td>
+                    <td>{{ terminal.branch_name }}</td>
+                    <td>{{ terminal.cdm_name }}</td>
+                    <td>{{ terminal.serial_number }}</td>
+                    <td>{{ terminal.region.name }}</td>
+                    <td>{{ terminal.model }}</td>
+                    <td>{{ terminal.zone.name }}</td>
+                    <td>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editTerminalModal{{ terminal.id }}">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeTerminalModal{{ terminal.id }}">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No terminals added yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Ticket Modal Template for Each Terminal -->
+    {% for terminal in terminals %}
+    <div class="modal fade" id="ticketModal{{ terminal.id }}" tabindex="-1" aria-labelledby="ticketModalLabel{{ terminal.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketModalLabel{{ terminal.id }}">Tickets for Terminal: {{ terminal.branch_name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tickets will be loaded dynamically -->
+                    <div id="ticketsList{{ terminal.id }}">
+                        <!-- Tickets for this terminal will go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Create Terminal Modal -->
+    <div class="modal fade" id="createTerminalModal" tabindex="-1" aria-labelledby="createTerminalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createTerminalModalLabel">Create New Terminal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Create Terminal Form -->
+                    <form method="POST" action="{% url 'terminals' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="customer">Customer</label>
+                            <select id="customer" name="customer" class="form-control" required>
+                                <option value="">Select Customer</option>
+                                {% for customer in customers %}
+                                <option value="{{ customer.id }}">{{ customer.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="branch">Branch</label>
+                            <input type="text" id="branch_name" name="branch_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cdm_name">CDM Name</label>
+                            <input type="text" id="cdm_name" name="cdm_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serial_number">Serial Number</label>
+                            <input type="text" id="serial_number" name="serial_number" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="region">Region</label>
+                            <select id="region" name="region" class="form-control" required>
+                                <option value="">Select Region</option>
+                                {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model</label>
+                            <input type="text" id="model" name="model" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zone">Zone</label>
+                            <select id="zone" name="zone" class="form-control" required>
+                                <option value="">Select Zone</option>
+                                {% for zone in zones %}
+                                <option value="{{ zone.id }}">{{ zone.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" name="create" class="btn btn-success mt-3">Create Terminal</button>
+                        <!--<button type="submit" name="create_another" class="btn btn-primary mt-3">Create & Add Another</button>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove Terminal Confirmation Modal -->
+    {% for terminal in terminals %}
+    <div class="modal fade" id="removeTerminalModal{{ terminal.id }}" tabindex="-1" aria-labelledby="removeTerminalModalLabel{{ terminal.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeTerminalModalLabel{{ terminal.id }}">Confirm Removal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove the terminal <strong>{{ terminal.cdm_name }}</strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <form method="POST" action="{% url 'delete_terminal' terminal.id %}">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for terminal in terminals %}
+    <div class="modal fade" id="editTerminalModal{{ terminal.id }}" tabindex="-1" aria-labelledby="editTerminalModalLabel{{ terminal.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="editTerminalModalLabel{{ terminal.id }}">Edit Terminal: {{ terminal.cdm_name }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{% url 'edit_terminal' terminal.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="customer{{ terminal.id }}">Customer</label>
+                <select id="customer{{ terminal.id }}" name="customer" class="form-control" required>
+                {% for customer in customers %}
+                <option value="{{ customer.id }}" {% if terminal.customer.id == customer.id %}selected{% endif %}>{{ customer.name }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="branch_name{{ terminal.id }}">Branch</label>
+                <input type="text" id="branch_name{{ terminal.id }}" name="branch_name" class="form-control" value="{{ terminal.branch_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="cdm_name{{ terminal.id }}">CDM Name</label>
+                <input type="text" id="cdm_name{{ terminal.id }}" name="cdm_name" class="form-control" value="{{ terminal.cdm_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="serial_number{{ terminal.id }}">Serial Number</label>
+                <input type="text" id="serial_number{{ terminal.id }}" name="serial_number" class="form-control" value="{{ terminal.serial_number }}" required>
+            </div>
+            <div class="form-group">
+                <label for="region{{ terminal.id }}">Region</label>
+                <select id="region{{ terminal.id }}" name="region" class="form-control" required>
+                {% for region in regions %}
+                <option value="{{ region.id }}" {% if terminal.region.id == region.id %}selected{% endif %}>{{ region.name }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="model{{ terminal.id }}">Model</label>
+                <input type="text" id="model{{ terminal.id }}" name="model" class="form-control" value="{{ terminal.model }}" required>
+            </div>
+            <div class="form-group">
+                <label for="zone{{ terminal.id }}">Zone</label>
+                <select id="zone{{ terminal.id }}" name="zone" class="form-control" required>
+                {% for zone in zones %}
+                <option value="{{ zone.id }}" {% if terminal.zone.id == zone.id %}selected{% endif %}>{{ zone.name }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <span class="page-links">
+            {% if terminals.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ terminals.previous_page_number }}">Previous</a>
+            {% endif %}
+            
+            <span class="current-page">Page {{ terminals.number }} of {{ terminals.paginator.num_pages }}</span>
+
+            {% if terminals.has_next %}
+                <a href="?page={{ terminals.next_page_number }}">Next</a>
+                <a href="?page={{ terminals.paginator.num_pages }}">Last</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<script src="{% static 'js/ticketing_dashboard.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Add event listeners for each terminal row
+        const rows = document.querySelectorAll('.clickable-row');
+        
+        rows.forEach(row => {
+            row.addEventListener('click', function () {
+                const terminalId = this.getAttribute('data-terminal-id');
+                const ticketsList = document.getElementById(`ticketsList${terminalId}`);
+
+                // Fetch the tickets associated with the terminal
+                fetch(`/tickets/terminal/${terminalId}/`)  // Create this endpoint in your Django views
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            ticketsList.innerHTML = data.tickets.map(ticket => `
+                                <div class="ticket-item">
+                                    <a href="/tickets/${ticket.id}/" class="ticket-link">
+                                        Ticket #${ticket.id}: ${ticket.title}
+                                    </a>
+                                </div>
+                            `).join('');
+                        } else {
+                            ticketsList.innerHTML = "<p>No tickets found for this terminal.</p>";
+                        }
+                    });
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+📝 Files ready for upload:
+PS C:\Users\dell> & C:/Python313/python.exe "c:/Goddie/Digital Data Exchange.py"
+🚀 Starting process...
+🚀 Checking FTP directories...
+📂 Available directories on FTP server:
+🔍 Reading Excel file...
+🔍 Duration values from Excel:
+  track_titles  duration
+0   Mashamsham  05:02:00
+1    Nami Nimo  04:27:00
+✅ Excel read successfully. 2 records found.
+📝 Processing track 1: Mashamsham
+🕒 Formatting duration: 05:02:00
+📝 Final duration for Mashamsham: PT5M2S
+📝 Processing track 2: Nami Nimo
+🕒 Formatting duration: 04:27:00
+📝 Final duration for Nami Nimo: PT4M27S
+📝 Files ready for upload:
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\3616844176244\mashamsham_update.xml
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\AUDIO\mashamsham.mp3
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\WAV\mashamsham.wav
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\IMAGES\mashamsham.jpg
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\3616844176251\nami_nimo_update.xml
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\AUDIO\nami_nimo.mp3
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\WAV\nami_nimo.wav
+C:\Goddie\THE SURVIVORS GOSPEL CHOIR\IMAGES\nami_nimo.jpg
+❓ Proceed with upload? (y/n): y
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\3616844176244\mashamsham_update.xml
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\3616844176244\mashamsham_update.xml
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\AUDIO\mashamsham.mp3
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\AUDIO\mashamsham.mp3
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\WAV\mashamsham.wav
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\WAV\mashamsham.wav
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\IMAGES\mashamsham.jpg
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\IMAGES\mashamsham.jpg
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\3616844176251\nami_nimo_update.xml
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\3616844176251\nami_nimo_update.xml
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\AUDIO\nami_nimo.mp3
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\AUDIO\nami_nimo.mp3
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\WAV\nami_nimo.wav
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\WAV\nami_nimo.wav
+📤 Uploading: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\IMAGES\nami_nimo.jpg
+✅ Uploaded: C:\Goddie\THE SURVIVORS GOSPEL CHOIR\IMAGES\nami_nimo.jpg
+✅ All done!

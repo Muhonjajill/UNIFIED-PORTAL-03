@@ -1,0 +1,100 @@
+{% extends "files_base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/file_management_dashboard.css' %}">
+{% endblock %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="dashboard-section">
+  <h2 class="section-title">File Types</h2>
+  <div class="file-types-grid">
+    {% for type in file_types %}
+    <div class="file-type-card">
+      <div class="folder-icon-wrapper">
+        <img src="{% static 'icons/folder-yellow.png' %}" alt="Folder background" class="folder-bg">
+        <img src="{% static 'icons/'|add:type.icon|add:'.png' %}" alt="{{ type.type }}" class="file-icon-overlay">
+      </div>
+      <h3 class="file-label">{{ type.type }}</h3>
+      <p class="count">{{ type.count }} file{{ type.count|pluralize }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="dashboard-section">
+  <h2 class="section-title">Categories</h2>
+  <div class="categories-grid">
+    {% for category in categories %}
+    <div class="category-card">
+      <div class="category-header">
+        <div class="folder-icon-wrapper small">
+          <img src="{% static 'icons/folder-yellow.png' %}" class="folder-bg" alt="Folder">
+          <!-- Category Icon -->
+          <img src="{% static 'icons/category-specific-icons/'|add:category.icon|add:'.png' %}" alt="{{ category.name }}" class="file-icon-overlay">
+        </div>
+        <h4>{{ category.name }}</h4>
+      </div>
+      <p class="file-count">{{ category.file_count }} file{{ category.file_count|pluralize }}</p>
+      <a href="{% url 'file_list_by_category' category.name %}" class="view-files-link">
+        View Files <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    {% empty %}
+    <p>No categories available</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="dashboard-section">
+  <h2 class="section-title">Recently Uploaded</h2>
+  <div class="recent-files-grid">
+    <div class="recent-file-header">
+      <span>File Icon</span>
+      <span>Title</span>
+      <span>Uploaded On</span>
+      <span>Download</span>
+    </div>
+    {% for file in recent_files %}
+    <div class="recent-file-row">
+      <div class="file-icon">
+        {% if file.extension == '.pdf' %}
+          <img src="{% static 'icons/pdf.png' %}" alt="PDF Icon" class="file-icon-img">
+        {% elif file.extension == '.jpg' or file.extension == '.jpeg' %}
+          <img src="{% static 'icons/image.png' %}" alt="Image Icon" class="file-icon-img">
+        {% elif file.extension == '.png' %}
+          <img src="{% static 'icons/image.png' %}" alt="Image Icon" class="file-icon-img">
+        {% elif file.extension == '.docx' %}
+          <img src="{% static 'icons/docx.png' %}" alt="Word Icon" class="file-icon-img">
+        {% elif file.extension == '.xlsx' %}
+          <img src="{% static 'icons/xlsx.png' %}" alt="Excel Icon" class="file-icon-img">
+        {% elif file.extension == '.txt' %}
+          <img src="{% static 'icons/text.png' %}" alt="Text File Icon" class="file-icon-img">
+        {% elif file.extension == '.csv' %}
+          <img src="{% static 'icons/csv.png' %}" alt="CSV File Icon" class="file-icon-img">
+        {% elif file.extension == '.xml' %}
+          <img src="{% static 'icons/xml.png' %}" alt="XML File Icon" class="file-icon-img">
+        {% elif file.extension == '.ppt' %}
+          <img src="{% static 'icons/ppt.png' %}" alt="PPT File Icon" class="file-icon-img">
+        {% else %}
+          <img src="{% static 'icons/file.png' %}" alt="Default File Icon" class="file-icon-img">
+        {% endif %}
+      </div>
+      <div class="file-title">
+        <strong>{{ file.title }}</strong>
+      </div>
+      <div class="file-upload-date">
+        <small>{{ file.upload_date|date:"M d, Y H:i" }}</small>
+      </div>
+      <div class="file-download">
+        <a href="{{ file.file.url }}" download>⬇ Download</a>
+      </div>
+    </div>
+    {% empty %}
+    <p>No recent files found.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

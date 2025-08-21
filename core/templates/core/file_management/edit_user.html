@@ -1,0 +1,26 @@
+{% extends 'files_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/editDetail.css' %}">
+{% endblock %}
+
+{% block title %}Edit User{% endblock %}
+{% block content %}
+<div class="container">
+  <h2>Edit User: {{ user.username }}</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <label>Username:</label><br>
+    <input type="text" name="username" value="{{ user.username }}" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" value="{{ user.email }}" required><br><br>
+
+    <label><input type="checkbox" name="is_active" {% if user.is_active %}checked{% endif %}> Active</label><br><br>
+
+    <button type="submit" class="btn">Save Changes</button>
+    <a href="{% url 'user_list' %}" class="btn cancel">Cancel</a>
+  </form>
+</div>
+{% endblock %}

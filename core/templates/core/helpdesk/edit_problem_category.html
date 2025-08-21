@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/edit_problem_category.css' %}">
+{% endblock %}
+
+{% block title %}Edit Problem Category{% endblock %}
+
+{% block content %}
+<div class="form-container">
+  <div class="section-header">
+    <h2>✏️ Edit Problem Category</h2>
+    <p>Update the problem category details.</p>
+  </div>
+
+  <form method="POST" class="category-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-success">Update Category</button>
+      <a href="{% url 'problem_category' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

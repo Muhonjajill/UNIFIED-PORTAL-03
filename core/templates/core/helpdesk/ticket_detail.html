@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/ticket_detail.css' %}">
+{% endblock %}
+
+{% block title %}Ticket #{{ ticket.id }}{% endblock %}
+
+{% block content %}
+<div class="ticket-detail-container">
+  <div class="ticket-card">
+    <h2>🎟️ Ticket 0{{ ticket.id }} - {{ ticket.title }}</h2>
+
+    <div class="ticket-info">
+      <div><strong>Status:</strong> <span class="badge badge-{{ ticket.status }}">{{ ticket.get_status_display }}</span></div>
+      <div><strong>Priority:</strong> <span class="badge badge-{{ ticket.priority }}">{{ ticket.get_priority_display }}</span></div>
+      <div><strong>BRTS Unit:</strong> {{ ticket.brts_unit }}</div>
+      <div><strong>Customer:</strong> {{ ticket.customer }}</div>
+      <div><strong>Terminal:</strong> {{ ticket.terminal }}</div>
+      <div><strong>Region:</strong> {{ ticket.region }}</div>
+      <!--<div><strong>Comments:</strong><br><p class="comment-summary">{{ ticket.comment_summary }}</p></div>-->
+      <div><strong>Problem Category:</strong> {{ ticket.problem_category }}</div>
+      <div><strong>Description:</strong><br><p class="description">{{ ticket.description }}</p></div>
+      <div><strong>Created By:</strong> {{ ticket.created_by }}</div>
+      <div class="assigned-to-wrapper">
+          <strong>Assigned To:</strong>
+          {% if is_manager %}
+              <form method="post" class="assigned-form">
+                  {% csrf_token %}
+                  <select name="assigned_to" class="form-select form-select-sm">
+                      <option value="">-- Select Staff --</option>
+                      {% for staff in staff_users %}
+                          <option value="{{ staff.id }}" {% if ticket.assigned_to and ticket.assigned_to.id == staff.id %}selected{% endif %}>
+                              {{ staff.get_full_name|default:staff.username }}
+                          </option>
+                      {% endfor %}
+                  </select>
+                  <button type="submit" name="assign_ticket" class="btn btn-success btn-sm">Assign</button>
+              </form>
+          {% else %}
+              <span class="assigned-name">
+                  {% if ticket.assigned_to %}
+                      {{ ticket.assigned_to.get_full_name|default:ticket.assigned_to.username }}
+                  {% else %}
+                      <em class="text-muted">Not assigned</em>
+                  {% endif %}
+              </span>
+          {% endif %}
+      </div>
+      <div><strong>Created At:</strong> {{ ticket.created_at|date:"Y-m-d H:i" }}</div>
+      <div><strong>Updated At:</strong> {{ ticket.updated_at|date:"Y-m-d H:i" }}</div>
+      <div><strong>Resolved By:</strong> {% if ticket.resolved_by %}{{ ticket.resolved_by.username }}{% else %}Not resolved yet{% endif %}</div>
+      <div><strong>Resolved At:</strong> {% if ticket.resolved_at %}{{ ticket.resolved_at|date:"Y-m-d H:i" }}{% else %}Not resolved yet{% endif %}</div>
+      {% if ticket.resolution %}
+        <div><strong>Resolution Statement:</strong><br><p class="description">{{ ticket.resolution }}</p></div>
+      {% endif %}
+      {% if ticket.is_escalated %}
+        <div class="alert alert-warning mt-3 p-3 rounded">
+          <strong>🚨 Escalated</strong><br>
+          <strong>By:</strong> {{ ticket.escalated_by }}<br>
+          <strong>At:</strong> {{ ticket.escalated_at|date:"Y-m-d H:i" }}<br>
+          <strong>Reason:</strong> <em>{{ ticket.escalation_reason }}</em>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="mt-4">
+      
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editTicketModal">✏️ Edit Ticket</button>
+
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#resolveTicketModal">
+            ✅ Resolve Ticket
+          </button>
+
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#escalateTicketModal">🚨 Escalate Ticket</button>
+
+      {% if can_resolve %}
+       
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#resolveTicketModal">
+            ✅ Resolve Ticket
+          </button>
+       
+      {% else %}
+        <span class="badge badge-success">✔️ Resolved</span>
+      {% endif %}
+    </div>
+
+    <a href="{% url 'tickets' %}" class="btn btn-back mt-3" style="background-color: #007bff; color: #fff;">← Back to Tickets</a>
+
+    <div class="card mt-5">
+      <div class="card-header bg-light">
+        <h4 class="card-title">📝 Comments</h4>
+      </div>
+      <div class="card-body">
+        {% if comments %}
+          {% for comment in comments %}
+            <div class="comment mb-3 p-2 border rounded">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>{{ comment.created_by }}</strong>
+                  <small class="text-muted">({{ comment.created_at|date:"Y-m-d H:i" }})</small>
+                </div>
+                {% if comment.created_by == request.user or user.is_superuser %}
+                  <div class="comment-actions">
+                    <a href="{% url 'edit_comment' comment.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <form method="post" action="{% url 'delete_comment' comment.id %}" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                  </div>
+                {% endif %}
+              </div>
+              <p class="mt-2 mb-0">{{ comment.content }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">No comments yet.</p>
+        {% endif %}
+
+        <form method="post" class="mt-4">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit" name="add_comment" class="btn btn-primary">💬 Add Comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if is_admin or is_editor %}
+<div class="modal fade" id="editTicketModal" tabindex="-1" aria-labelledby="editTicketModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form method="post" action="">
+        {% csrf_token %}
+        <input type="hidden" name="edit_ticket" value="1">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editTicketModalLabel">Edit Ticket #{{ ticket.id }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% load widget_tweaks %}
+          
+          <div class="form-group mb-3">
+            <label for="{{ form.status.id_for_label }}">Status</label>
+            {{ form.status }}
+            {% if form.status.errors %}
+              <div class="text-danger">{{ form.status.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="{{ form.priority.id_for_label }}">Priority</label>
+            {{ form.priority }}
+            {% if form.priority.errors %}
+              <div class="text-danger">{{ form.priority.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="{{ form.problem_category.id_for_label }}">Problem Category</label>
+            {{ form.problem_category }}
+            {% if form.problem_category.errors %}
+              <div class="text-danger">{{ form.problem_category.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="{{ form.comment_summary.id_for_label }}">Comment Summary</label>
+            {{ form.comment_summary|add_class:"form-control" }}
+            {% if form.comment_summary.errors %}
+              <div class="text-danger">{{ form.comment_summary.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description|add_class:"form-control" }}
+            {% if form.description.errors %}
+              <div class="text-danger">{{ form.description.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group mb-3">
+            <label for="{{ form.resolution.id_for_label }}">Resolution</label>
+            {{ form.resolution|add_class:"form-control" }}
+            {% if form.resolution.errors %}
+              <div class="text-danger">{{ form.resolution.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Escalate Ticket Modal -->
+<div class="modal fade" id="escalateTicketModal" tabindex="-1" aria-labelledby="escalateTicketModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form method="post" action="{% url 'escalate_ticket' ticket.id %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="escalateTicketModalLabel">Escalate Ticket #{{ ticket.id }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="escalated_reason">Reason for Escalation</label>
+            <textarea class="form-control" id="note" name="note" rows="5" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">🚨 Escalate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add to ticket_detail.html to show escalation history -->
+<div class="card mt-5">
+    <div class="card-header bg-light">
+        <h4 class="card-title">📝 Escalation History</h4>
+    </div>
+    <div class="card-body">
+        {% if ticket.escalation_history.all %}
+            {% for history in ticket.escalation_history.all %}
+                <div class="escalation-history-item mb-3">
+                    <strong>Escalated by:</strong> {{ history.escalated_by.username }} <br>
+                    <strong>From Level:</strong> {{ history.from_level }} <br>
+                    <strong>To Level:</strong> {{ history.to_level }} <br>
+                    <strong>Note:</strong> {{ history.note }} <br>
+                    <strong>Escalated at:</strong> {{ history.timestamp|date:"Y-m-d H:i" }} <br>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No escalation history yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal: Resolve Ticket with Resolution -->
+<div class="modal fade" id="resolveTicketModal" tabindex="-1" aria-labelledby="resolveTicketModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form method="post" action="{% url 'resolve_ticket' ticket.id %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="resolveTicketModalLabel">Resolve Ticket #{{ ticket.id }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="resolution">Resolution Statement</label>
+            <textarea class="form-control" name="resolution" id="resolution" rows="5" placeholder="Describe how the issue was resolved..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" name="resolve_ticket" class="btn btn-success">✅ Submit Resolution</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

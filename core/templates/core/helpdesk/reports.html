@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/reports.css' %}">
+{% endblock %}
+
+<div class="page-container">
+  <h2><i class="fas fa-file-alt"></i> Reports</h2>
+  <p>View system reports here.</p>
+
+    <!-- Filters -->
+    <form method="get" class="report-filters">
+      <div class="form-header">
+        <h3>Filter Options</h3>
+        <div class="button-row">
+          <button type="submit" name="download" value="excel" class="btn btn-success">
+            <i class="fas fa-file-excel" style="display: inline;"></i> Download Excel
+          </button>
+          <a href="{% url 'statistics' %}" class="btn btn-info">
+            <i class="fas fa-chart-line" style="display: inline;"></i> Statistics
+          </a>
+        </div>
+      </div>
+
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label for="customer-select">Customer:</label>
+          <select id="customer-select" name="customer" class="form-control" {% if user_group == 'Custodian' or user_group == 'Overseer' %}disabled{% endif %}>
+            <option value="All">All Customers</option>
+            {% for customer in customers %}
+              <option value="{{ customer.id }}" {% if request.GET.customer == customer.id|stringformat:"s" %}selected{% endif %}>
+                {{ customer.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {% if user_group == 'Custodian' %}
+          <div class="filter-group">
+            <label>Branch:</label>
+            <select class="form-control" disabled>
+              {% for terminal in terminals %}
+                <option selected>{{ terminal.branch_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% else %}
+          <div class="filter-group">
+            <label for="terminal-search">Terminal Name:</label>
+            <input
+              type="text"
+              id="terminal-search"
+              name="terminal_name"
+              class="form-control"
+              placeholder="Search Terminal by Branch Name"
+              value="{{ request.GET.terminal_name }}"
+            >
+          </div>
+        {% endif %}
+
+        <div class="filter-group">
+          <label for="category-select">Category:</label>
+          <select id="category-select" name="category" class="form-control">
+            <option value="All">All Categories</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="start_date_picker">Start Date:</label>
+          <input type="text" id="start_date_picker" name="start_date" class="date-picker form-control" value="{{ request.GET.start_date }}" placeholder="Select Start Date" />
+        </div>
+
+        <div class="filter-group">
+          <label for="end_date_picker">End Date:</label>
+          <input type="text" id="end_date_picker" name="end_date" class="date-picker form-control" value="{{ request.GET.end_date }}" placeholder="Select End Date" />
+        </div>
+
+        <div class="filter-action">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-filter"></i> Apply Filters
+          </button>
+        </div>
+      </div>
+    </form>
+
+  <!-- Report Table -->
+   {% if request.GET.terminal_name %}
+    <!-- Table for Terminal filter -->
+    <div class="table-responsive">
+      <table class="report-table table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Problem Category</th>
+            <th>Status</th>
+            <th>Responsible</th>
+            <th>Description</th>
+            <th>Comments</th>  
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+          <tr>
+            <pre>{{ tickets }}</pre>
+
+            <td>{{ forloop.counter }}</td>
+            <td>{{ ticket.created_at }}</td>
+            <td>{{ ticket.updated_at }}</td>
+            <td>{{ ticket.problem_category.name }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.responsible }}</td>
+            <td>{{ ticket.description|truncatewords:10 }}</td>
+            <td>
+              {% for comment in ticket.comments.all %}
+                <div>
+                  <strong>{{ comment.created_by }}:</strong> {{ comment.content|truncatewords:10 }}<br>
+                  <small>{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+                </div>
+              {% empty %}
+                <span class="text-muted">No comments</span>
+              {% endfor %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="7">No tickets found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <!-- Table for Customer filter or all data -->
+    <div class="table-responsive">
+      <table class="report-table table table-striped">
+        <thead>
+          <tr>
+            <th>NO</th>
+            <th>Customer</th>
+            <th>Terminal</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Problem Category</th>
+            <th>Status</th>
+            <th>Resolved At</th>
+            <th>Resolved By</th>
+            <th>Resolution</th>
+            <th>Responsible</th>
+            <th>Description</th>
+            <th>Comments</th> 
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              {% if ticket.customer %}
+                {{ ticket.customer.name }}
+              {% else %}
+                No Customer
+              {% endif %}
+            </td>
+            <td>{{ ticket.terminal.branch_name }}</td>
+            <td>{{ ticket.created_at }}</td>
+            <td>{{ ticket.updated_at }}</td>
+            <td>{{ ticket.problem_category.name }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>
+              {% if ticket.resolved_at %}
+                {{ ticket.resolved_at|date:"Y-m-d H:i" }}
+              {% else %}
+                Not Resolved
+              {% endif %}
+            </td>
+            <td>
+              {% if ticket.resolved_by %}
+                {{ ticket.resolved_by.username }}
+              {% else %}
+                Not Assigned
+              {% endif %}
+            </td>
+            <td>{{ ticket.resolution|default:"—" }}</td>
+            <td>{{ ticket.responsible }}</td>
+            <td>{{ ticket.description|truncatewords:10 }}</td>
+            <td>
+              {% for comment in ticket.comments.all %}
+                <div>
+                  <strong>{{ comment.created_by }}:</strong> {{ comment.content|truncatewords:10 }}<br>
+                  <small>{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+                </div>
+              {% empty %}
+                <span class="text-muted">No comments</span>
+              {% endfor %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="10">No tickets found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <span class="page-number">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+    </span>
+
+    <span class="page-number">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    <span class="page-number">
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+
+<script src="{% static 'js/ticketing_dashboard.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  flatpickr(".date-picker", {
+    dateFormat: "Y-m-d",
+    allowInput: true,
+    defaultDate: null
+  });
+
+  document.querySelectorAll('.report-table tbody tr').forEach((row, i) => {
+    row.style.opacity = 0;
+    row.style.transform = 'translateY(30px)';
+    setTimeout(() => {
+      row.style.transition = 'all 0.7s cubic-bezier(.68,-0.55,.27,1.55)';
+      row.style.opacity = 1;
+      row.style.transform = 'translateY(0)';
+    }, 200 + 70 * i);
+  });
+</script>
+
+{% endblock %}
