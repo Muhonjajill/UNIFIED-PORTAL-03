@@ -97,6 +97,12 @@
   outline: none; 
   box-shadow: 0 0 10px rgba(40, 167, 69, 0.6);  
 }
+.btn-info{
+  float: right;
+  margin-bottom: 30px;
+  background-color: #123692;
+  color: #fff;
+}
 
 /* Escalation History Styling */
 

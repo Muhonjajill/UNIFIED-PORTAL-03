@@ -110,6 +110,7 @@ ESCALATION_LEVEL_EMAILS = {
     'Tier 4': ('godblessodhiambo@gmail.com',EMAIL_HOST_USER),
 }
 
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -132,7 +133,7 @@ LOGGING = {
         },
     },
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

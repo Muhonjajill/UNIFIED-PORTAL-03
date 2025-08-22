@@ -139,3 +139,63 @@ def assign_permissions(user, permissions_list):
         except Permission.DoesNotExist:
             print(f"⚠️ Permission with codename '{codename}' does not exist.")
 
+
+
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
+from .models import Ticket, TicketComment, ActivityLog
+
+@receiver(post_save, sender=Ticket)
+def log_ticket_update(sender, instance, created, **kwargs):
+    if created:
+        return  # Skip logging new tickets
+
+    old_ticket = getattr(instance, '_old_ticket', None)
+    changes = []
+
+    if old_ticket:
+        # Status change
+        if old_ticket.status != instance.status:
+            changes.append(f"Status: {old_ticket.status} → {instance.status}")
+
+        # Assigned to change
+        if old_ticket.assigned_to != instance.assigned_to:
+            old_assignee = old_ticket.assigned_to.username if old_ticket.assigned_to else "None"
+            new_assignee = instance.assigned_to.username if instance.assigned_to else "None"
+            changes.append(f"Assigned to: {old_assignee} → {new_assignee}")
+
+    # Default generic update if no field-specific changes
+    action = " | ".join(changes) if changes else f"Ticket updated: {instance.title}"
+
+    ActivityLog.objects.create(
+        ticket=instance,
+        action=action,
+        user=instance.updated_by
+    )
+
+
+@receiver(post_save, sender=TicketComment)
+def log_ticket_comment(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    # Use the actual field on your TicketComment model
+    comment_text = getattr(instance, "comment", None) or getattr(instance, "content", None) or ""
+    preview = (comment_text[:120] + "…") if len(comment_text) > 120 else comment_text
+
+    action = f"Comment added to ticket {instance.ticket.title}: {preview}"
+
+    ActivityLog.objects.create(
+        ticket=instance.ticket,
+        action=action,
+        user=instance.created_by
+    )
+
+
+@receiver(post_save, sender=Ticket)
+def log_ticket_resolution(sender, instance, created, **kwargs):
+    if instance.status == 'Resolved':  # You can check your ticket status values
+        action = f"Ticket resolved: {instance.title}"
+        ActivityLog.objects.create(ticket=instance, action=action, user=instance.updated_by)
+
+

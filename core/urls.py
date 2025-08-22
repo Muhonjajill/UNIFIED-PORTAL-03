@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from .views import SettingsView, manage_file_categories
+from .views import ticket_activity_log
 
 
 urlpatterns = [
@@ -66,6 +67,12 @@ urlpatterns = [
 
     path('ticketing/', views.ticketing_dashboard, name='ticketing_dashboard'),
     path('tickets/', views.tickets, name='tickets'),
+
+    #path('ticket/<int:ticket_id>/activity/', views.ticket_activity_log, name='ticket_activity_log'),
+    path('ticket/<int:ticket_id>/activity/', views.ticket_activity_log, name='ticket_activity_log'),
+
+
+
     path('create_ticket/', views.create_ticket, name= 'create_ticket'),
     path('tickets/<int:ticket_id>/', views.ticket_detail, name='ticket_detail'), 
     path('comments/<int:comment_id>/edit/', views.edit_comment, name='edit_comment'),

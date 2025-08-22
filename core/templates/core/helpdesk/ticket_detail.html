@@ -11,6 +11,7 @@
 <div class="ticket-detail-container">
   <div class="ticket-card">
     <h2>🎟️ Ticket 0{{ ticket.id }} - {{ ticket.title }}</h2>
+    <a href="{% url 'ticket_activity_log' ticket.id %}" class="btn btn-info">View Activity Log</a>
 
     <div class="ticket-info">
       <div><strong>Status:</strong> <span class="badge badge-{{ ticket.status }}">{{ ticket.get_status_display }}</span></div>
@@ -87,6 +88,8 @@
     </div>
 
     <a href="{% url 'tickets' %}" class="btn btn-back mt-3" style="background-color: #007bff; color: #fff;">← Back to Tickets</a>
+    
+
 
     <div class="card mt-5">
       <div class="card-header bg-light">

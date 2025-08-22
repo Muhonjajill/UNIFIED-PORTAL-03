@@ -1909,7 +1909,35 @@ def ticket_detail(request, ticket_id):
         elif 'edit_ticket' in request.POST:
             form = TicketEditForm(request.POST, instance=ticket)
             if form.is_valid():
-                form.save()
+                # Track changes before saving
+                old_ticket = Ticket.objects.get(id=ticket.id)
+                ticket = form.save(commit=False)
+                ticket.updated_by = request.user  # Track who updated the ticket
+
+                #comment_summary,, 'resolution'
+
+                changes = []
+                watch_fields = [
+                    'brts_unit', 'problem_category', 'title', 'terminal', 'description',
+                    'customer', 'region', 'assigned_to', 'responsible', 'status',
+                    'priority', 'is_escalated','current_escalation_level'
+                ]
+
+                for field in watch_fields:
+                    old_value = getattr(old_ticket, field)
+                    new_value = getattr(ticket, field)
+                    if old_value != new_value:
+                        changes.append((field, old_value, new_value))
+
+                ticket.save()
+                # Log the changes to the activity log
+                if changes:
+                    change_summary = "; ".join([f"{field}: {old} → {new}" for field, old, new in changes])
+                    ActivityLog.objects.create(
+                        ticket=ticket,
+                        action=f"Ticket updated: {change_summary}",
+                        user=request.user
+                    )
                 return redirect('ticket_detail', ticket_id=ticket.id)
 
         elif 'assign_ticket' in request.POST and is_manager:
@@ -1917,7 +1945,16 @@ def ticket_detail(request, ticket_id):
             if staff_id:
                 staff_member = get_object_or_404(User, id=staff_id, groups__name='Staff')
                 ticket.assigned_to = staff_member
+                ticket.updated_by = request.user  # Track who updated the ticket
                 ticket.save()
+
+                # Log the assignment change
+                if old_assigned_to != staff_member:
+                    ActivityLog.objects.create(
+                        ticket=ticket,
+                        action=f"Ticket assigned: {old_assigned_to} → {staff_member}",
+                        user=request.user
+                    )
 
                 subject = f"🎫 Ticket #{ticket.id} Assigned to You"
                 text_content = (
@@ -2741,3 +2778,12 @@ def delete_version(request, pk):
     version = get_object_or_404(VersionControl, pk=pk)
     version.delete()
     return redirect('version_controls') 
+
+
+
+from django.shortcuts import render
+from .models import ActivityLog
+
+def ticket_activity_log(request, ticket_id):
+    logs = ActivityLog.objects.filter(ticket_id=ticket_id).order_by('-timestamp')
+    return render(request, 'core/helpdesk/ticket_activity_log.html', {'logs': logs})
