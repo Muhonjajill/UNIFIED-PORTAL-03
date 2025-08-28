@@ -1,19 +1,18 @@
 /* Base Layout */
 .top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure full width */
   height: 60px;
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
-  position: fixed;
-  top: 0;
-  left: 250px;
-  right: 0;
-  z-index: 1050;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow for depth */
-  transition: box-shadow 0.3s ease-in-out; /* Smooth transition effect */
+  background-color: #fff;
+  padding: 0 15px; /* Reduced padding for small screens */
+  color: #007bff;
+  z-index: 1000;
+  box-sizing: border-box; /* Ensure padding doesn't affect total width */
 }
 
 /* Logo */
@@ -176,6 +175,7 @@
 @media (max-width: 768px) {
   .hamburger {
     display: block;
+    color: #007bff; 
   }
 
   .top-navbar {
@@ -201,5 +201,13 @@
   .search-bar {
     width: 100%;
     margin: 0.5rem 0;
+  }
+   .logo {
+    font-size: 1rem;
+    flex: 1; /* Let logo take available space */
+    text-align: center; /* Center logo between hamburger and profile */
+  }
+  .user-profile {
+    flex-shrink: 0; 
   }
 }

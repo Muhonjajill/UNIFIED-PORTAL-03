@@ -11,6 +11,8 @@
   font-size: 1.8em;
   color: var(--primary-color);
   margin-bottom: 10px;
+  text-align: center;  /* Add this to center the title */
+  font-weight: bold;   /* Optional: make the title bolder */;
 }
 
 .ticket-actions {

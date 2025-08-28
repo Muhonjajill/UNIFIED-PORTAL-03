@@ -1915,44 +1915,67 @@ def ticket_detail(request, ticket_id):
                 ticket.updated_by = request.user  # Track who updated the ticket
 
                 #comment_summary,, 'resolution'
-
-                changes = []
                 watch_fields = [
                     'brts_unit', 'problem_category', 'title', 'terminal', 'description',
                     'customer', 'region', 'assigned_to', 'responsible', 'status',
                     'priority', 'is_escalated','current_escalation_level'
                 ]
 
+                changes = []
+                
+
                 for field in watch_fields:
                     old_value = getattr(old_ticket, field)
                     new_value = getattr(ticket, field)
-                    if old_value != new_value:
-                        changes.append((field, old_value, new_value))
-
+                    
+                    # Convert foreign keys to string (username, name, etc.) for comparison
+                    # Convert foreign keys or objects to strings
+                    old_value_str = str(old_value) if old_value is not None else ""
+                    new_value_str = str(new_value) if new_value is not None else ""
+                    if old_value_str != new_value_str:
+                        changes.append((field, old_value_str, new_value_str))
                 ticket.save()
                 # Log the changes to the activity log
                 if changes:
-                    change_summary = "; ".join([f"{field}: {old} → {new}" for field, old, new in changes])
+                    # Format each change on its own line with bullet points
+                    change_summary = "\n".join([
+                        f"• {field.replace('_', ' ').title()}: {old} → {new}"
+                        for field, old, new in changes
+                    ])
+
+                    # If escalation-related fields were changed, log as escalation
+                    escalation_changes = [c for c in changes if c[0] in ['is_escalated', 'current_escalation_level']]
+                    if escalation_changes:
+                        action = f"Ticket escalated:\n{change_summary}"
+                    else:
+                        action = f"Ticket updated:\n{change_summary}"
+
+                    print("Logging activity:", action)    
+
                     ActivityLog.objects.create(
                         ticket=ticket,
-                        action=f"Ticket updated: {change_summary}",
+                        action=action,
                         user=request.user
                     )
+
                 return redirect('ticket_detail', ticket_id=ticket.id)
 
         elif 'assign_ticket' in request.POST and is_manager:
             staff_id = request.POST.get('assigned_to')
             if staff_id:
                 staff_member = get_object_or_404(User, id=staff_id, groups__name='Staff')
+                old_assigned_to = ticket.assigned_to
                 ticket.assigned_to = staff_member
                 ticket.updated_by = request.user  # Track who updated the ticket
+                
+
                 ticket.save()
 
                 # Log the assignment change
                 if old_assigned_to != staff_member:
                     ActivityLog.objects.create(
                         ticket=ticket,
-                        action=f"Ticket assigned: {old_assigned_to} → {staff_member}",
+                        action=f"Ticket assigned:\n• Assigned To: {old_assigned_to} → {staff_member}",
                         user=request.user
                     )
 
@@ -2064,6 +2087,10 @@ def ticket_detail(request, ticket_id):
 
                 msg.send()
                 return redirect('ticket_detail', ticket_id=ticket.id)
+            
+
+    activity_logs = ActivityLog.objects.filter(ticket=ticket).order_by('-timestamp')
+      
 
 
     context = {
@@ -2075,7 +2102,8 @@ def ticket_detail(request, ticket_id):
         'is_editor': request.user.groups.filter(name='Editor').exists(),
         'can_resolve': request.user.groups.filter(name='Resolver').exists(),
         'is_manager': is_manager,
-        'staff_users': staff_users if is_manager else None
+        'staff_users': staff_users if is_manager else None,
+        'activity_logs': activity_logs,
     }
 
     return render(request, 'core/helpdesk/ticket_detail.html', context)
@@ -2784,6 +2812,23 @@ def delete_version(request, pk):
 from django.shortcuts import render
 from .models import ActivityLog
 
+"""def ticket_activity_log(request, ticket_id):
+    activity_logs = ActivityLog.objects.filter(ticket_id=ticket_id).order_by('-timestamp')
+    return render(request, 'core/helpdesk/ticket_activity_log.html', {'activity_logs': activity_logs})"""
+
+
 def ticket_activity_log(request, ticket_id):
-    logs = ActivityLog.objects.filter(ticket_id=ticket_id).order_by('-timestamp')
-    return render(request, 'core/helpdesk/ticket_activity_log.html', {'logs': logs})
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    activity_logs = ActivityLog.objects.filter(ticket=ticket).order_by('-timestamp')
+    return render(request, 'core/helpdesk/ticket_activity_log.html', {
+        'ticket': ticket,
+        'activity_logs': activity_logs,
+    })
+def clear_activity_logs(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    
+    if request.method == "POST":
+        ActivityLog.objects.filter(ticket=ticket).delete()
+        messages.success(request, "All activity logs have been cleared.")
+    
+    return redirect('ticket_activity_log', ticket_id=ticket.id)

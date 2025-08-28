@@ -1,64 +1,69 @@
-/* ticket_activity_log.css */
-
-/* General container styling */
-.activity-log-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+.ticket-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-align: center;  /* optional */
 }
 
-/* Table styling */
+
+.activity-log-container {
+    overflow-x: auto;
+}
+
 .activity-log-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.activity-log-table th,
-.activity-log-table td {
-    padding: 12px;
-    text-align: left;
+.activity-log-table th, .activity-log-table td {
     border: 1px solid #ddd;
+    padding: 10px;
+    vertical-align: top;
 }
 
 .activity-log-table th {
-    background-color: #123692;
-    color: white;
-    font-size: 16px;
+    background-color: #172d69;
+    color: #fff;
+    text-align: left;
 }
 
-.activity-log-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* Hover effect on rows */
-.activity-log-table tr:hover {
-    background-color: #e8f5e9;
-}
-
-/* Styling for the action column */
-.activity-log-table td:first-child {
-    font-weight: bold;
-}
-
-/* Styling for the timestamp */
-.activity-log-table td:nth-child(2) {
-    color: #888;
-}
-
-/* Add spacing between the title and table */
-h2 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Add some margin to the page */
-body {
+.activity-log-table td ul {
+    padding-left: 20px;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
 }
 
+.activity-log-table td li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.clear-logs-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.clear-logs-btn:hover {
+    background-color: #c0392b;
+}
+
+@media screen and (max-width: 768px) {
+    .activity-log-table th, .activity-log-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .clear-logs-btn {
+        width: 100%;
+        padding: 12px 0;
+    }
+}

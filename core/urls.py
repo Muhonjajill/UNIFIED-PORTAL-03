@@ -70,6 +70,7 @@ urlpatterns = [
 
     #path('ticket/<int:ticket_id>/activity/', views.ticket_activity_log, name='ticket_activity_log'),
     path('ticket/<int:ticket_id>/activity/', views.ticket_activity_log, name='ticket_activity_log'),
+    path('ticket/<int:ticket_id>/activity/clear/', views.clear_activity_logs, name='clear_activity_logs'),
 
 
 

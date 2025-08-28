@@ -6,28 +6,61 @@
 {% endblock %}
 
 {% block content %}
-<h2>Activity Log for Ticket: {{ ticket.title }}</h2>
+<h2 class="ticket-title">Activity Log for Ticket: {{ ticket.title }}</h2>
+
+<form method="post" action="{% url 'clear_activity_logs' ticket.id %}" style="margin-bottom: 20px;" onsubmit="return confirmClearLogs()">
+    {% csrf_token %}
+    <button type="submit" class="clear-logs-btn">Clear All Logs</button>
+</form>
+
 <div class="activity-log-container">
+    {% if activity_logs %}
     <table class="activity-log-table">
         <thead>
             <tr>
-                <th>Action</th>
-                <th>Time</th>
                 <th>User</th>
-                <!--<th>Details</th>-->
+                <th>Action</th>
+                <th>Timestamp</th>
             </tr>
         </thead>
         <tbody>
-            {% for log in logs %}
+            {% for log in activity_logs %}
             <tr>
-                <td>{{ log.action }}</td>
+                <td>
+                    {% if log.user %}
+                        {{ log.user.username }}
+                    {% else %}
+                        System
+                    {% endif %}
+                </td>
+                <td>
+                    {% if log.action %}
+                        {% if "•" in log.action %}
+                            <ul>
+                                {% for line in log.action.splitlines %}
+                                    {% if line %}
+                                        <li>{{ line|cut:"• " }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>{{ log.action|linebreaksbr }}</p>
+                        {% endif %}
+                    {% endif %}
+                </td>
                 <td>{{ log.timestamp }}</td>
-                <td>{{ log.user.username }}</td>
-                <!--<td>{{ log.details }}</td>-->
             </tr>
             {% endfor %}
-
         </tbody>
     </table>
+    {% else %}
+        <p>No activity yet for this ticket.</p>
+    {% endif %}
 </div>
+
+<script>
+function confirmClearLogs() {
+    return confirm("Are you sure you want to clear all activity logs for this ticket? This action cannot be undone.");
+}
+</script>
 {% endblock %}

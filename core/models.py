@@ -367,10 +367,19 @@ class TicketComment(models.Model):
 
 class ActivityLog(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-    action = models.CharField(max_length=200)  # Describes the action performed, e.g. "Ticket Resolved", "Comment Added"
+    #action = models.CharField(max_length=200)  # Describes the action performed, e.g. "Ticket Resolved", "Comment Added"
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)  # User who made the change
     timestamp = models.DateTimeField(auto_now_add=True)
+    action = models.CharField(max_length=1000)
+
     #details = models.TextField(null=True, blank=True)  # Extra details, e.g. the comment added
 
+    class Meta:
+        ordering = ['-timestamp']
+        indexes = [
+            models.Index(fields=['ticket', 'timestamp']),
+        ]
+
+
     def __str__(self):
-        return f'{self.ticket} - {self.action}'    
+        return f'{self.ticket.title if self.ticket else "Unknown Ticket"} - {self.action}'   
